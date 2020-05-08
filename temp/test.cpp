@@ -1,4 +1,7 @@
 #include <ncurses.h>
+#include <iostream>
+
+using namespace std;
 
 int main(){
     WINDOW *win1;
@@ -9,6 +12,8 @@ int main(){
     border('*','*','*','*','*','*','*','*');
     mvprintw(1,1,"A default window");
     refresh();
+    int KeyPressed = getch();
+    cout<<KeyPressed<<endl;
     getch();
     win1 = newwin(20, 20, 3, 3);
     wbkgd(win1, COLOR_PAIR(1));
