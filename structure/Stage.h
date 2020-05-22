@@ -4,7 +4,7 @@
 class Stage : public IObject{
 public:
     int nowStage;
-	int clear;
+    bool clear;
 	Stage();
 	~Stage();
 

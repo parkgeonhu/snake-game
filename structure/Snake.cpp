@@ -1,10 +1,6 @@
-struct CharPosition 
-{
-	int32 x, y;
-	CharPosition(int32 col, int32 row);
-	CharPosition();
-};
 
+
+using int32=int
 
 CharPosition::CharPosition(int32 col, int32 row)
 {
@@ -20,11 +16,21 @@ CharPosition::CharPosition()
 
 
 Snake::Snake(){
-    
+    initBody();
 }
 
-void fSnakeGame::MoveSnake()
-{
+
+void initBody(){
+    for (int32 i = 0; i < 5; i++) {
+		entire.push_back(CharPosition(30+i, 10));
+	}
+	for (int32 i = 0; i < snake.size(); i++){
+		move(entire[i].y, entire[i].x);
+		addch(partchar);
+	}
+}
+
+void Snake::Update(){
 	int32 KeyPressed = getch();
 	switch(KeyPressed)
 	{
@@ -50,28 +56,27 @@ void fSnakeGame::MoveSnake()
 	}
 
 	// the snake doesn't eat fruit, remains same size
-	if (!bEatsFruit)
+	if (true)
 	{
-		move(snake[snake.size()-1].y, snake[snake.size()-1].x); // moves at the end of the tail
+		move(entire[entire.size()-1].y, entire[entire.size()-1].x); // moves at the end of the tail
 		printw(" "); // add empty ch to remove last character
 		refresh();
-		snake.pop_back(); // removes the last element in the vector, reducing the container size by one
+		entire.pop_back(); // removes the last element in the vector, reducing the container size by one
 	}
 
 	// the snake moves and we add an extra character at the beginning of the vector
 	// add a head and initialise new coordinates for CharPosition according to the direction input
 	if (direction == 'l')
-	{ snake.insert(snake.begin(), CharPosition(snake[0].x-1, snake[0].y)); } 
+	{ entire.insert(snake.begin(), CharPosition(entire[0].x-1, entire[0].y)); } 
 	else if (direction == 'r')
-	{ snake.insert(snake.begin(), CharPosition(snake[0].x+1, snake[0].y)); }
+	{ entire.insert(snake.begin(), CharPosition(entire[0].x+1, entire[0].y)); }
 	else if (direction == 'u')
-	{ snake.insert(snake.begin(), CharPosition(snake[0].x, snake[0].y-1)); }
+	{ entire.insert(snake.begin(), CharPosition(entire[0].x, entire[0].y-1)); }
 	else if (direction == 'd')
-	{ snake.insert(snake.begin(), CharPosition(snake[0].x, snake[0].y+1)); }
+	{ entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y+1)); }
 
 	// move to the new CharPosition coordinates
-	move(snake[0].y, snake[0].x);
+	move(entire[0].y, entire[0].x);
 	addch(partchar); // add a new head
 	refresh();
-	return;
 }

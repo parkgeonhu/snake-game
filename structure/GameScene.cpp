@@ -1,4 +1,6 @@
 #include "GameScene.h"
+#include "Snake.h"
+#include "myFunction.h"
 #include <unistd.h>
 
 using namespace std;
@@ -8,17 +10,7 @@ using int32 = int;
 
 extern Stage * stage
 
-CharPosition::CharPosition(int32 col, int32 row)
-{
-	x = col;
-	y = row;
-}
 
-CharPosition::CharPosition()
-{
-	x = 0;
-	y = 0;
-}
 
 
 
@@ -32,14 +24,16 @@ GameScene::GameScene()
 	direction = 'l';
 	srand(time(NULL));
     
+    snake=new Snake();
+    
     start_color();
     init_pair(1, COLOR_BLUE, COLOR_YELLOW);
 	
 	InitGameWindow();
-	PositionFruit();
-	DrawWindow();
-	DrawSnake();
-	PrintScore();
+	// PositionFruit();
+	// DrawWindow();
+	// DrawSnake();
+	// PrintScore();
 
 	refresh();	
 }
@@ -49,6 +43,18 @@ GameScene::~GameScene()
 	nodelay(stdscr, false);
 	getch();
 	endwin();
+}
+
+
+
+void GameScene::Update(float eTime){
+    stage->Update();
+    snake->Update();
+}
+
+void GameScene::Render(){
+    stage->Render();
+    snake->Render();
 }
 
 // initialise the game window
@@ -173,28 +179,28 @@ bool GameScene::FatalCollision()
 	return false;
 }
 
-// define behaviour when snake eats the fruit
-bool GameScene::GetsFruit()
-{
-	if (snake[0].x == fruit.x && snake[0].y == fruit.y)
-	{
-		PositionFruit(); 
-		score +=10; 
-		PrintScore();
+// // define behaviour when snake eats the fruit
+// bool GameScene::GetsFruit()
+// {
+// 	if (snake[0].x == fruit.x && snake[0].y == fruit.y)
+// 	{
+// 		PositionFruit(); 
+// 		score +=10; 
+// 		PrintScore();
 
-		// if score is a multiple of 100, increase snake speed
-		if ((score%100) == 0)
-		{
-			del -= 1000;
-		}
-		return bEatsFruit = true;
-	}
-	else 
-	{
-		return bEatsFruit = false;
-	}
-	return bEatsFruit;
-}
+// 		// if score is a multiple of 100, increase snake speed
+// 		if ((score%100) == 0)
+// 		{
+// 			del -= 1000;
+// 		}
+// 		return bEatsFruit = true;
+// 	}
+// 	else 
+// 	{
+// 		return bEatsFruit = false;
+// 	}
+// 	return bEatsFruit;
+// }
 
 // define snake's movements
 void GameScene::MoveSnake()
