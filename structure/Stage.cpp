@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "Stage.h"
+#include "CharPosition.h"
 
 
 Stage::Stage(){
@@ -9,7 +10,7 @@ Stage::Stage(){
 Stage::~Stage(){
 }
 
-void Stage::Update(float eTime){
+void Stage::Update(){
     
     if(clear){
         refresh();

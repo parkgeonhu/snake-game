@@ -11,22 +11,28 @@
 
 using int32 = int;
 
-struct CharPosition 
-{
-	int32 x, y;
-	CharPosition(int32 col, int32 row);
-	CharPosition();
-};
 
-class CGameScene : public IScene {
+class GameScene : public IScene {
 public:
-    int32 score, del, maxwidth, maxheight;
-	CGameScene();
-	~CGameScene();
+    int32 score, maxwidth, maxheight;
+    
+    char edgechar;
+    
+	GameScene();
+	~GameScene();
 	Snake *snake;
 	bool isChangeScene;
+    
+    void InitGameWindow();
+	void DrawWindow();  
+	// void DrawSnake();
+	// void PrintScore();
+	// void PositionFruit();
+	// bool FatalCollision();
+	// void MoveSnake();
+	// bool GetsFruit();
 	
-	void Update(float eTime);
+	void Update();
 	void Render();
     
 	// void UpdateRunning(float eTime);

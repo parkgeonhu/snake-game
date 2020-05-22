@@ -1,23 +1,27 @@
 #pragma once
 #include <ncurses.h>
+#include <vector>
+#include "CharPosition.h"
+#include "IObject.h"
 
+
+using int32=int;
 
 class Snake : public IObject{
-private:
-    
 public:
 
-	Snake(Stage *stage, SoundMgr *sound);
+	Snake();
 	~Snake();
 
-	Stage *stage;
-    std::vector<CharPosition> entire
-    
+    std::vector<CharPosition> entire;
+    char partchar,direction;
 	int choiceCount;
 	int select;
 
-	void Update(float eTime);
+	void Update();
     void Render();
+    
+    void initBody();
     
     
 };

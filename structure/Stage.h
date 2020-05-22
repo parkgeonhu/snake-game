@@ -1,4 +1,5 @@
 #pragma once
+#include "IObject.h"
 
 
 class Stage : public IObject{
@@ -15,6 +16,6 @@ public:
 		this->nowStage = nowStage;
 	}
 
-	void Update(float eTime);
+	void Update();
 	void Render();
 };
