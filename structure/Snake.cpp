@@ -3,6 +3,7 @@
 
 Snake::Snake(){
     direction = 'l';
+    partchar='*';
     initBody();
 }
 
@@ -55,6 +56,7 @@ void Snake::Update(){
 	{ entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y-1)); }
 	else if (direction == 'd')
 	{ entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y+1)); }
+    refresh();
 }
 
 

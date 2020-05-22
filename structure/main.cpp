@@ -22,12 +22,13 @@ int32 UserInput();
 
 int32 main ()
 {	
-	// if (IsUserReady() == 'y') // wait for confirmation of the user
+	if (IsUserReady() == 'y') // wait for confirmation of the user
     Init();
 	do {
         Update();
         Render();
-	}while (AskUserToPlayAgain() == 'y');
+	}while(true);
+        // (AskUserToPlayAgain() == 'y');
 	return 0;
 }
 

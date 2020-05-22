@@ -50,7 +50,7 @@ void GameScene::InitGameWindow()
 void GameScene::Update(){
     stage->Update();
     snake->Update();
-    usleep(500);
+    usleep(500000);
 }
 
 void GameScene::Render(){
