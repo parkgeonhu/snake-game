@@ -32,6 +32,7 @@ void Render()
 void Destroy(){
 	delete nowScene;
 }
+
 float GetElapsedTime(){
 	QueryPerformanceCounter(&RInterval);
 	__int64 Interval = (RInterval.QuadPart - LInterval.QuadPart);
@@ -41,6 +42,7 @@ float GetElapsedTime(){
 	LInterval = RInterval;
 	return eTime;
 }
+
 void UpdateKeyState()
 {
 	for(int i=0;i<256;i++)
