@@ -161,7 +161,132 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 ```
 
 ## 구현 방법
-시작은 main.cpp에서 시작한다.
+프로그램의 시작은 main.cpp다. 이곳에서 Scene의 Update와 Render가 이뤄진다.
+##### myFunction.h
+```c++
+#pragma once
+#include "IScene.h"
+#include<iostream>
+using namespace std;
+
+void Init();
+void Update(); //Elapsed Time
+void Render();
+void Destroy();
+// float GetElapsedTime();
+// void UpdateKeyState();
+// int MyKeyState(int key);
+void ChangeScene(IScene *p,bool nowSceneErase = true);
+
+```
+##### main.cpp
+```c++
+#include "myFunction.h"
+int32 main ()
+{	
+	if (IsUserReady() == 'y') // wait for confirmation of the user
+    Init();
+	do {
+        Update();
+        Render();
+	}while(true);
+        // (AskUserToPlayAgain() == 'y');
+	return 0;
+}
+```
+myFunction.h 에서 Iscene * nowScene에는 현재 사용자에게 보여주어야 할 Scene을 할당해준다. 예를 들어 대기화면을 보여줘야하면 초기화 시, nowScene=new WaitingScene() 해준다.<br>
+myFunction.h 의 Update와 Render에는  nowScene의 Update와 Render를 해준다. 메인 게임의 로직은 GameScene에 구현할 예정이다.
+##### GameScene.cpp
+```c++
+GameScene::GameScene()
+{
+	srand(time(NULL));
+    
+    snake=new Snake();
+    edgechar=(char)219;
+    
+    start_color();
+    init_pair(1, COLOR_BLUE, COLOR_YELLOW);
+	
+	InitGameWindow();
+    DrawWindow();
+	refresh();	
+}
+
+GameScene::~GameScene()
+{
+	nodelay(stdscr, false);
+	getch();
+	endwin();
+}
+
+// initialise the game window
+void GameScene::InitGameWindow() 
+{ 
+	initscr(); // initialise the screen
+	nodelay(stdscr,TRUE);
+	keypad(stdscr, true); // initialise the keyboard: we can use arrows for directions
+	noecho(); // user input is not displayed on the screen
+	curs_set(0); // cursor symbol is not not displayed on the screen (Linux)
+	getmaxyx(stdscr, maxheight, maxwidth); // define dimensions of game window
+	return; 
+}
+
+
+
+void GameScene::Update(){
+    stage->Update();
+    snake->Update();
+    usleep(500000);
+}
+
+void GameScene::Render(){
+    stage->Render();
+    snake->Render();
+}
+```
+캐릭터(뱀)가 움직여야 하는 부분은 Snake.cpp 에 구현할 것이며, 캐릭터의 Head와 아이템, 벽의 충돌 판단은 GameScene에 구현할 예정이다. 충돌 시 Object가 무엇인지 판단하여 상황에 맞는 Snake 메소드를 호출할 것이다. 캐릭터의 크기 늘리기, 줄이기, 움직이기 등의 기능은 Snake에 구현할 것이다. 아랭의 코드는 예시 코드다.
+##### Snake.cpp
+
+```c++
+void Snake::move(){
+	int32 KeyPressed = getch();
+	switch(KeyPressed)
+	{
+		case KEY_LEFT:
+			if (direction != 'r') 
+			{ direction = 'l'; }  
+			break;
+		case KEY_RIGHT:
+			if (direction != 'l')
+			{ direction = 'r'; }
+			break;
+		case KEY_UP:
+			if (direction != 'd')
+			{ direction = 'u'; }
+			break;
+		case KEY_DOWN:
+			if (direction != 'u')
+			{ direction = 'd'; }
+			break;
+		case KEY_BACKSPACE:
+			direction = 'q'; // key to quit the game
+			break;
+	}
+
+	// the snake moves and we add an extra character at the beginning of the vector
+	// add a head and initialise new coordinates for CharPosition according to the direction input
+	if (direction == 'l')
+	{ entire.insert(entire.begin(), CharPosition(entire[0].x-1, entire[0].y)); } 
+	else if (direction == 'r')
+	{ entire.insert(entire.begin(), CharPosition(entire[0].x+1, entire[0].y)); }
+	else if (direction == 'u')
+	{ entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y-1)); }
+	else if (direction == 'd')
+	{ entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y+1)); }
+    refresh();
+}
+```
 
 
 ## 역할 분담
