@@ -2,13 +2,8 @@
 This is the console executable, that makes use of the fSnakeGame class.
 This is handling all user interaction. For game logic, please see fSnakeGame.h.
 */
-#include <iostream>
-#include <vector>
-#include <ncurses.h>
-#include <cstdlib>
-#include <ctime>
 
-#include "myFunction.h"
+#include "fSnakeGame.h"
 
 // Unreal standards
 using int32 = int;
@@ -23,12 +18,13 @@ int32 UserInput();
 int32 main ()
 {	
 	if (IsUserReady() == 'y') // wait for confirmation of the user
-    Init();
 	do {
-        Update();
-        Render();
-	}while(true);
-        // (AskUserToPlayAgain() == 'y');
+		{
+			fSnakeGame NewSnake;
+			NewSnake.PlayGame();
+		}
+	}
+	while (AskUserToPlayAgain() == 'y');
 	return 0;
 }
 
