@@ -133,3 +133,51 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
   - G : 7   (V)
   - P : 3   (   )
   - g : 1   (   )
+  
+## 프로젝트 구조
+
+```bash
+.
+├── LICENSE
+├── Makefile
+├── README.md
+├── goorm.manifest
+├── src
+    ├── CharPosition.h
+    ├── GameScene.cpp
+    ├── GameScene.h
+    ├── IObject.h
+    ├── IScene.h
+    ├── Snake.cpp
+    ├── Snake.h
+    ├── Stage.cpp
+    ├── Stage.h
+    ├── WaitingScene.cpp
+    ├── WaitingScene.h
+    ├── main.cpp
+    ├── myFunction.cpp
+    └── myFunction.h
+
+```
+
+## 구현 방법
+시작은 main.cpp에서 시작한다.
+
+
+## 역할 분담
+#### 박건후
+* 프레임워크 구성
+* Snake collison 로직, Snake move, Stage별 맵 Load
+* Scene 구조 구성
+* GameScene 기능 구성
+
+#### 민대인
+* Item 오브젝트 만들기
+* Scattering Item object on map
+* Stage별 맵 만들기, Stage 기능 구성하기
+* WaitingScene, GameOverScene 기능 구성
+
+
+
+
+
