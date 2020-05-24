@@ -245,7 +245,7 @@ void GameScene::Render(){
     snake->Render();
 }
 ```
-캐릭터(뱀)가 움직여야 하는 부분은 Snake.cpp 에 구현할 것이며, 캐릭터의 Head와 아이템, 벽의 충돌 판단은 GameScene에 구현할 예정이다. 충돌 시 Object가 무엇인지 판단하여 상황에 맞는 Snake 메소드를 호출할 것이다. 캐릭터의 크기 늘리기, 줄이기, 움직이기 등의 기능은 Snake에 구현할 것이다. 아랭의 코드는 예시 코드다.
+캐릭터(뱀)가 움직여야 하는 부분은 Snake.cpp 에 구현할 것이며, 캐릭터의 Head와 아이템, 벽의 충돌 판단은 GameScene에 구현할 예정이다. 충돌 시 Object가 무엇인지 판단하여 상황에 맞는 Snake 메소드를 호출할 것이다. 캐릭터의 크기 늘리기, 줄이기, 움직이기 등의 기능은 Snake에 구현할 것이다. 아래의 코드는 예시 코드다.
 ##### Snake.cpp
 
 ```c++
@@ -290,13 +290,13 @@ void Snake::move(){
 
 
 ## 역할 분담
-#### 박건후
+#### 박건후 @parkgeonhu
 * 프레임워크 구성
 * Snake collison 로직, Snake move, Stage별 맵 Load
 * Scene 구조 구성
 * GameScene 기능 구성
 
-#### 민대인
+#### 민대인 @bamin0422
 * Item 오브젝트 만들기
 * Scattering Item object on map
 * Stage별 맵 만들기, Stage 기능 구성하기
