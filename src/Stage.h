@@ -1,18 +1,18 @@
 #pragma once
 #include "IObject.h"
 
-
-class Stage : public IObject{
+class Stage : public IObject
+{
 public:
-    int nowStage;
-    bool clear;
+	int nowStage;
+	bool clear;
 	Stage();
 	~Stage();
 
-	
-	int getNowStage(){ return nowStage; }
+	int getNowStage() { return nowStage; }
 
-	void setNowStage(int nowStage){
+	void setNowStage(int nowStage)
+	{
 		this->nowStage = nowStage;
 	}
 
