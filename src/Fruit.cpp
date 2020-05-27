@@ -7,6 +7,7 @@
 Fruit::Fruit()
 {
     getmaxyx(stdscr, maxheight, maxwidth);
+    fruit.push_back(CharPosition(0, 0));
 }
 
 Fruit::~Fruit()
@@ -22,14 +23,14 @@ void Fruit::Update()
     timeCheck = timeCheck % 50;
     if (timeCheck == 0)
     {
-        move(fruit[0], fruit[1]);
+        move(fruit[0].y, fruit[0].x);
         addch(' ');
         PositionFruit();
     }
     else if (eatFruit)
     {
         timeCheck = 0;
-        move(fruit[0], fruit[1]);
+        move(fruit[0].y, fruit[0].x);
         addch(' ');
         PositionFruit();
         eatFruit = false;
@@ -39,15 +40,15 @@ void Fruit::Update()
 
 void Fruit::PositionFruit()
 {
-    fruit[0] = rand() % (maxheight - 2);
-    fruit[1] = rand() % (maxwidth - 2);
-    move(fruit[0], fruit[1]);
+    fruit.insert(fruit.begin(), CharPosition(rand() % (maxwidth - 2), rand() % (maxheight - 2)));
+    move(fruit[0].y, fruit[0].x);
+    fruit.pop_back();
     addch('$');
 }
 
 void Fruit::GetFruit(Snake s)
 {
-    if (s.entire[0].x == fruit[1] && s.entire[0].y == fruit[0])
+    if (s.entire[0].x == fruit[0].x && s.entire[0].y == fruit[0].y)
         eatFruit = true;
     else
         eatFruit = false;

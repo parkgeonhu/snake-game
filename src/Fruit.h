@@ -1,5 +1,6 @@
 #pragma once
 #include "IObject.h"
+#include "CharPosition.h"
 #include <vector>
 #include <ncurses.h>
 #include <cstdlib>
@@ -8,7 +9,7 @@
 class Fruit : public IObject
 {
 public:
-    int fruit[2];
+    std::vector<CharPosition> fruit;
     int timeCheck = 0;
     int maxheight, maxwidth;
     bool eatFruit = false;
