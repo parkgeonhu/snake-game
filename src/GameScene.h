@@ -2,9 +2,7 @@
 #include "IScene.h"
 #include "Stage.h"
 #include "Snake.h"
-#include "PoisonItem.h"
-#include "Fruit.h"
-
+#include "ItemManager.h"
 #include <iostream>
 #include <vector>
 #include <ncurses.h>
@@ -23,8 +21,7 @@ public:
 	GameScene();
 	~GameScene();
 	Snake *snake;
-	Fruit *fruit;
-	PoisonItem *poisonItem;
+	ItemManager *itemManager;
 
 	bool isChangeScene;
 

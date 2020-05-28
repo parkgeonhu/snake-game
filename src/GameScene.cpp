@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "Snake.h"
-#include "Fruit.h"
-#include "PoisonItem.h"
+#include "ItemManager.h"
 #include "myFunction.h"
 #include "IObject.h"
 #include <unistd.h>
@@ -19,8 +18,7 @@ GameScene::GameScene()
 	srand(time(NULL));
 
 	snake = new Snake();
-	fruit = new Fruit();
-	poisonItem = new PoisonItem();
+	itemManager = new ItemManager();
 
 	edgechar = (char)219;
 
@@ -55,10 +53,8 @@ void GameScene::Update()
 {
 	stage->Update();
 	snake->Update();
-	fruit->Update();
-	fruit->GetFruit(*snake);
-	poisonItem->Update();
-	poisonItem->GetPoisonItem(*snake);
+	itemManager->Update();
+	itemManager->GetItem(*snake);
 
 	usleep(250000);
 }
@@ -67,7 +63,7 @@ void GameScene::Render()
 {
 	stage->Render();
 	snake->Render();
-	fruit->Render();
+	itemManager->Render();
 }
 
 // draw the game window
