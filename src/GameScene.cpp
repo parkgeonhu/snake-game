@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include "Snake.h"
+#include "ItemManager.h"
 #include "myFunction.h"
+#include "IObject.h"
 #include <unistd.h>
 #include <ncurses.h>
 
@@ -9,21 +11,23 @@ using namespace std;
 // Unreal coding standards
 using int32 = int;
 
-extern Stage * stage;
+extern Stage *stage;
 
 GameScene::GameScene()
 {
 	srand(time(NULL));
-    
-    snake=new Snake();
-    edgechar=(char)219;
-    
-    start_color();
-    init_pair(1, COLOR_BLUE, COLOR_YELLOW);
-	
+
+	snake = new Snake();
+	itemManager = new ItemManager();
+
+	edgechar = (char)219;
+
+	start_color();
+	init_pair(1, COLOR_BLUE, COLOR_YELLOW);
+
 	InitGameWindow();
-    DrawWindow();
-	refresh();	
+	DrawWindow();
+	refresh();
 }
 
 GameScene::~GameScene()
@@ -34,31 +38,33 @@ GameScene::~GameScene()
 }
 
 // initialise the game window
-void GameScene::InitGameWindow() 
-{ 
+void GameScene::InitGameWindow()
+{
 	initscr(); // initialise the screen
-	nodelay(stdscr,TRUE);
-	keypad(stdscr, true); // initialise the keyboard: we can use arrows for directions
-	noecho(); // user input is not displayed on the screen
-	curs_set(0); // cursor symbol is not not displayed on the screen (Linux)
+	nodelay(stdscr, TRUE);
+	keypad(stdscr, true);				   // initialise the keyboard: we can use arrows for directions
+	noecho();							   // user input is not displayed on the screen
+	curs_set(0);						   // cursor symbol is not not displayed on the screen (Linux)
 	getmaxyx(stdscr, maxheight, maxwidth); // define dimensions of game window
-	return; 
+	return;
 }
 
+void GameScene::Update()
+{
+	stage->Update();
+	snake->Update();
+	itemManager->Update();
+	itemManager->GetItem(*snake);
 
-
-void GameScene::Update(){
-    stage->Update();
-    snake->Update();
-    usleep(500000);
+	usleep(250000);
 }
 
-void GameScene::Render(){
-    stage->Render();
-    snake->Render();
+void GameScene::Render()
+{
+	stage->Render();
+	snake->Render();
+	itemManager->Render();
 }
-
-
 
 // draw the game window
 void GameScene::DrawWindow()
@@ -71,24 +77,23 @@ void GameScene::DrawWindow()
 
 	for (int32 i = 0; i < maxwidth; i++) // draws bottom
 	{
-		move(maxheight-2, i);
+		move(maxheight - 2, i);
 		addch(edgechar);
 	}
 
-	for (int32 i = 0; i < maxheight-1; i++) // draws left side
+	for (int32 i = 0; i < maxheight - 1; i++) // draws left side
 	{
 		move(i, 0);
 		addch(edgechar);
 	}
 
-	for (int32 i = 0; i < maxheight-1; i++) // draws right side
+	for (int32 i = 0; i < maxheight - 1; i++) // draws right side
 	{
-		move(i, maxwidth-1);
+		move(i, maxwidth - 1);
 		addch(edgechar);
 	}
 	return;
 }
-
 
 // // print score at bottom of window
 // void GameScene::PrintScore()
@@ -97,8 +102,6 @@ void GameScene::DrawWindow()
 // 	printw("Score: %d", score);
 // 	return;
 // }
-
-
 
 // void GameScene::PlayGame()
 // {
@@ -110,10 +113,10 @@ void GameScene::DrawWindow()
 //             printw("GAME OVER");
 //             break;
 //         }
-        
+
 //         Update();
 //         Render();
-        
+
 //         if (direction=='q') //exit
 //         {
 //         	break;
