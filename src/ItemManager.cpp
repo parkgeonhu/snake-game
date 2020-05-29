@@ -7,8 +7,8 @@
 ItemManager::ItemManager()
 {
     getmaxyx(stdscr, maxheight, maxwidth);
-    fruit.push_back(CharPosition(0, 0));
-    poison.push_back(CharPosition(0, 0));
+    fruit.push_back(CharPosition(rand() % (maxwidth - 1) + 1, rand() % (maxheight - 1) + 1));
+    poison.push_back(CharPosition(rand() % (maxwidth - 1) + 1, rand() % (maxheight - 1) + 1));
 }
 
 ItemManager::~ItemManager()
@@ -21,31 +21,31 @@ void ItemManager::Render()
 
 void ItemManager::Update()
 {
-    timeCheckF = timeCheckF % 50;
-    timeCheckP = timeCheckP % 50;
+    timeCheckF = timeCheckF % 100;
+    timeCheckP = timeCheckP % 100;
 
     if (timeCheckF == 0)
     {
         move(fruit[0].y, fruit[0].x);
         addch(' ');
-        PositionItem();
-    }
-    else if (timeCheckP == 0)
-    {
-        move(poison[0].y, poison[0].x);
-        addch(' ');
-        PositionItem();
+        PositionItem(0);
     }
     else if (eatFruit)
     {
         timeCheckF = 0;
-        PositionItem();
+        PositionItem(0);
         eatFruit = false;
+    }
+    if (timeCheckP == 0)
+    {
+        move(poison[0].y, poison[0].x);
+        addch(' ');
+        PositionItem(1);
     }
     else if (eatPoison)
     {
         timeCheckP = 0;
-        PositionItem();
+        PositionItem(1);
         eatPoison = false;
     }
 
@@ -53,18 +53,18 @@ void ItemManager::Update()
     timeCheckP++;
 }
 
-void ItemManager::PositionItem()
+void ItemManager::PositionItem(int check)
 {
-    if (eatFruit || timeCheckF == 0)
+    if (check == 0 && (eatFruit || timeCheckF == 0))
     {
-        fruit.insert(fruit.begin(), CharPosition(rand() % (maxwidth - 3), rand() % (maxheight - 3)));
+        fruit.insert(fruit.begin(), CharPosition(rand() % (maxwidth - 2) + 1, rand() % (maxheight - 2) + 1));
         move(fruit[0].y, fruit[0].x);
         fruit.pop_back();
         addch('$');
     }
-    if (eatPoison || timeCheckP == 0)
+    if (check == 1 && (eatPoison || timeCheckP == 0))
     {
-        poison.insert(poison.begin(), CharPosition(rand() % (maxwidth - 3), rand() % (maxheight - 3)));
+        poison.insert(poison.begin(), CharPosition(rand() % (maxwidth - 2) + 1, rand() % (maxheight - 2) + 1));
         move(poison[0].y, poison[0].x);
         poison.pop_back();
         addch('X');
