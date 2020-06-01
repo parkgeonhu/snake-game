@@ -1,5 +1,6 @@
 #pragma once
 #include "IScene.h"
+#include "WaitingScene.h"
 #include "Stage.h"
 #include "Snake.h"
 #include "ItemManager.h"

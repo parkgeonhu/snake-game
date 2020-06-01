@@ -1,17 +1,15 @@
 #include "GameScene.h"
+#include "WaitingScene.h"
 #include "Snake.h"
 #include "ItemManager.h"
 #include "myFunction.h"
 #include "IObject.h"
 #include <unistd.h>
 #include <ncurses.h>
-
 using namespace std;
-
+extern Stage *stage;
 // Unreal coding standards
 using int32 = int;
-
-extern Stage *stage;
 
 GameScene::GameScene()
 {
@@ -57,7 +55,7 @@ void GameScene::Update()
 	itemManager->GetItem(*snake);
 	snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
 
-	usleep(250000);
+	usleep(100000);
 }
 
 void GameScene::Render()
