@@ -55,6 +55,7 @@ void GameScene::Update()
 	snake->Update();
 	itemManager->Update();
 	itemManager->GetItem(*snake);
+	snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
 
 	usleep(250000);
 }

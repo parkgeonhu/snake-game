@@ -4,24 +4,23 @@
 #include "CharPosition.h"
 #include "IObject.h"
 
+using int32 = int;
 
-using int32=int;
-
-class Snake : public IObject{
+class Snake : public IObject
+{
 public:
-
 	Snake();
 	~Snake();
 
-    std::vector<CharPosition> entire;
-    char partchar,direction;
+	std::vector<CharPosition> entire;
+	char partchar, direction;
 	int choiceCount;
 	int select;
+	bool eatFruit = false;
+	bool eatPoison = false;
 
 	void Update();
-    void Render();
-    
-    void initBody();
-    
-    
+	void Render();
+	void initBody();
+	void EatItem(bool fruit, bool poison);
 };

@@ -2,26 +2,35 @@
 #include "IObject.h"
 #include "CharPosition.h"
 #include "Snake.h"
+#include "Fruit.h"
+#include "Poison.h"
 #include <vector>
 #include <ncurses.h>
 #include <cstdlib>
+#include <string>
 #include <ctime>
 
 class ItemManager : public IObject
 {
 public:
-    std::vector<CharPosition> fruit, poison;
-    int timeCheckF = 0;
-    int timeCheckP = 0;
     int maxheight, maxwidth;
-    bool eatFruit = false;
-    bool eatPoison = false;
+    Fruit fruit;
+    Poison poison;
 
     ItemManager();
     ~ItemManager();
 
     void Render();
     void Update();
-    void PositionItem();
+    void PositionItem(std::string check);
     void GetItem(Snake s);
+
+    bool getEatFruit()
+    {
+        return fruit.eatFruit;
+    }
+    bool getEatPoison()
+    {
+        return poison.eatPoison;
+    }
 };

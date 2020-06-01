@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <string>
 #include "Snake.h"
 #include "ItemManager.h"
 #include "GameScene.h"
@@ -7,8 +8,6 @@
 ItemManager::ItemManager()
 {
     getmaxyx(stdscr, maxheight, maxwidth);
-    fruit.push_back(CharPosition(0, 0));
-    poison.push_back(CharPosition(0, 0));
 }
 
 ItemManager::~ItemManager()
@@ -21,65 +20,62 @@ void ItemManager::Render()
 
 void ItemManager::Update()
 {
-    timeCheckF = timeCheckF % 50;
-    timeCheckP = timeCheckP % 50;
+    fruit.timeCheck = fruit.timeCheck % 100;
+    poison.timeCheck = poison.timeCheck % 100;
 
-    if (timeCheckF == 0)
+    if (fruit.timeCheck == 0)
     {
-        move(fruit[0].y, fruit[0].x);
+        fruit.Print();
+        PositionItem("fruit");
+    }
+    else if (fruit.eatFruit)
+    {
+        fruit.timeCheck = 0;
+        PositionItem("fruit");
+        fruit.eatFruit = false;
+    }
+    if (poison.timeCheck == 0)
+    {
+        move(poison.data[0].y, poison.data[0].x);
         addch(' ');
-        PositionItem();
+        PositionItem("poison");
     }
-    else if (timeCheckP == 0)
+    else if (poison.eatPoison)
     {
-        move(poison[0].y, poison[0].x);
-        addch(' ');
-        PositionItem();
-    }
-    else if (eatFruit)
-    {
-        timeCheckF = 0;
-        PositionItem();
-        eatFruit = false;
-    }
-    else if (eatPoison)
-    {
-        timeCheckP = 0;
-        PositionItem();
-        eatPoison = false;
+        poison.timeCheck = 0;
+        PositionItem("poison");
+        poison.eatPoison = false;
     }
 
-    timeCheckF++;
-    timeCheckP++;
+    fruit.timeCheck++;
+    poison.timeCheck++;
 }
 
-void ItemManager::PositionItem()
+void ItemManager::PositionItem(std::string check)
 {
-    if (eatFruit || timeCheckF == 0)
+    if (check == "fruit" && (fruit.eatFruit || fruit.timeCheck == 0))
     {
-        fruit.insert(fruit.begin(), CharPosition(rand() % (maxwidth - 3), rand() % (maxheight - 3)));
-        move(fruit[0].y, fruit[0].x);
-        fruit.pop_back();
-        addch('$');
+        fruit.data.insert(fruit.data.begin(), CharPosition(rand() % (maxwidth - 2) + 1, rand() % (maxheight - 2) + 1));
+        fruit.Print();
+        fruit.data.pop_back();
     }
-    if (eatPoison || timeCheckP == 0)
+    if (check == "poison" && (poison.eatPoison || poison.timeCheck == 0))
     {
-        poison.insert(poison.begin(), CharPosition(rand() % (maxwidth - 3), rand() % (maxheight - 3)));
-        move(poison[0].y, poison[0].x);
-        poison.pop_back();
-        addch('X');
+        poison.data.insert(poison.data.begin(), CharPosition(rand() % (maxwidth - 2) + 1, rand() % (maxheight - 2) + 1));
+        poison.Print();
+        poison.data.pop_back();
     }
 }
 
 void ItemManager::GetItem(Snake s)
 {
-    if (s.entire[0].x == fruit[0].x && s.entire[0].y == fruit[0].y)
-        eatFruit = true;
+    if (s.entire[0].x == fruit.data[0].x && s.entire[0].y == fruit.data[0].y)
+        fruit.eatFruit = true;
     else
-        eatFruit = false;
+        fruit.eatFruit = false;
 
-    if (s.entire[0].x == poison[0].x && s.entire[0].y == poison[0].y)
-        eatPoison = true;
+    if (s.entire[0].x == poison.data[0].x && s.entire[0].y == poison.data[0].y)
+        poison.eatPoison = true;
     else
-        eatPoison = false;
+        poison.eatPoison = false;
 }
