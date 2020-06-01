@@ -1,6 +1,6 @@
 #pragma once
 #include "IScene.h"
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 void Init();
@@ -10,5 +10,4 @@ void Destroy();
 // float GetElapsedTime();
 // void UpdateKeyState();
 // int MyKeyState(int key);
-void ChangeScene(IScene *p,bool nowSceneErase = true);
-
+void ChangeScene(IScene *p, bool nowSceneErase = true);
