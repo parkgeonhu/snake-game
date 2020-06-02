@@ -9,16 +9,8 @@
 class Fruit : public Item
 {
 public:
-    int timeCheck = 0;
-    int maxwidth, maxheight;
-    std::vector<CharPosition> data;
-    bool eatFruit = false;
-
-    Fruit()
-    {
-        getmaxyx(stdscr, maxheight, maxwidth);
-        data.push_back(CharPosition(rand() % (maxwidth - 1) + 1, rand() % (maxheight - 1) + 1));
-    }
+    
+    Fruit() {}
     ~Fruit() {}
     void Print()
     {

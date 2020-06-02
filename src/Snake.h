@@ -2,6 +2,9 @@
 #include <ncurses.h>
 #include <vector>
 #include "CharPosition.h"
+#include "myFunction.h"
+#include "GameOverScene.h"
+#include "IScene.h"
 #include "IObject.h"
 
 using int32 = int;

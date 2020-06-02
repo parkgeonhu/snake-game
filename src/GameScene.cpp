@@ -31,7 +31,6 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	nodelay(stdscr, false);
-	getch();
 	endwin();
 }
 
@@ -68,27 +67,27 @@ void GameScene::Render()
 // draw the game window
 void GameScene::DrawWindow()
 {
-	for (int32 i = 0; i < maxwidth; i++) // draws top
+	for (int32 i = 0; i < 94; i++) // draws top
 	{
 		move(0, i);
 		addch(edgechar);
 	}
 
-	for (int32 i = 0; i < maxwidth; i++) // draws bottom
+	for (int32 i = 0; i < 94; i++) // draws bottom
 	{
-		move(maxheight - 2, i);
+		move(39 - 2, i);
 		addch(edgechar);
 	}
 
-	for (int32 i = 0; i < maxheight - 1; i++) // draws left side
+	for (int32 i = 0; i < 39 - 1; i++) // draws left side
 	{
 		move(i, 0);
 		addch(edgechar);
 	}
 
-	for (int32 i = 0; i < maxheight - 1; i++) // draws right side
+	for (int32 i = 0; i < 39 - 1; i++) // draws right side
 	{
-		move(i, maxwidth - 1);
+		move(i, 94 - 1);
 		addch(edgechar);
 	}
 	return;

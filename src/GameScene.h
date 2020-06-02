@@ -15,7 +15,8 @@ using int32 = int;
 class GameScene : public IScene
 {
 public:
-	int32 score, maxwidth, maxheight;
+	int32 score;
+	int32 maxwidth = 94, maxheight = 39;
 
 	char edgechar;
 
