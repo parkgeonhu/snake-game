@@ -55,13 +55,13 @@ void ItemManager::PositionItem(std::string check)
 {
     if (check == "fruit" && (fruit.eatFruit || fruit.timeCheck == 0))
     {
-        fruit.data.insert(fruit.data.begin(), CharPosition(rand() % (maxwidth - 2) + 1, rand() % (maxheight - 2) + 1));
+        fruit.data.insert(fruit.data.begin(), CharPosition(rand() % (maxwidth / 4 * 3 - 2) + 1, rand() % (maxheight - 2) + 1));
         fruit.Print();
         fruit.data.pop_back();
     }
     if (check == "poison" && (poison.eatPoison || poison.timeCheck == 0))
     {
-        poison.data.insert(poison.data.begin(), CharPosition(rand() % (maxwidth - 2) + 1, rand() % (maxheight - 2) + 1));
+        poison.data.insert(poison.data.begin(), CharPosition(rand() % (maxwidth / 4 * 3 - 2) + 1, rand() % (maxheight - 2) + 1));
         poison.Print();
         poison.data.pop_back();
     }

@@ -13,8 +13,9 @@ public:
 
     Item()
     {
-        int maxwidth= 94, maxheight=39;
-        data.push_back(CharPosition(rand() % (maxwidth - 1) + 1, rand() % (maxheight - 1) + 1));
+        int maxwidth, maxheight;
+        getmaxyx(stdscr, maxheight, maxwidth);
+        data.push_back(CharPosition(rand() % (maxwidth / 4 * 3 - 1) + 1, rand() % (maxheight - 1) + 1));
     }
     virtual void Print() = 0;
 };

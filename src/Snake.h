@@ -19,6 +19,7 @@ public:
 	char partchar, direction;
 	int choiceCount;
 	int select;
+	int maxwidth, maxheight;
 	bool eatFruit = false;
 	bool eatPoison = false;
 

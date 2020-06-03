@@ -8,6 +8,7 @@ Snake::Snake()
 {
 	direction = 'l';
 	partchar = '*';
+	getmaxyx(stdscr, maxheight, maxwidth);
 	initBody();
 }
 
@@ -32,10 +33,12 @@ void Snake::Update()
 {
 	//  ths snake's size below 3. Chanege GameScene to GameOverScene
 	int32 KeyPressed;
-	if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= 93) || (entire[0].y >= 38 || entire[0].y <= 0)){
+	if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= maxwidth / 4 * 3 - 1) || (entire[0].y >= maxheight - 1 || entire[0].y <= 0))
+	{
 		ChangeScene(new GameOverScene());
 	}
-	if (KeyPressed >= 3)KeyPressed = getch();
+	if (KeyPressed >= 3)
+		KeyPressed = getch();
 	switch (KeyPressed)
 	{
 	case KEY_LEFT:
@@ -43,24 +46,32 @@ void Snake::Update()
 		{
 			direction = 'l';
 		}
+		else
+			ChangeScene(new GameOverScene());
 		break;
 	case KEY_RIGHT:
 		if (direction != 'l')
 		{
 			direction = 'r';
 		}
+		else
+			ChangeScene(new GameOverScene());
 		break;
 	case KEY_UP:
 		if (direction != 'd')
 		{
 			direction = 'u';
 		}
+		else
+			ChangeScene(new GameOverScene());
 		break;
 	case KEY_DOWN:
 		if (direction != 'u')
 		{
 			direction = 'd';
 		}
+		else
+			ChangeScene(new GameOverScene());
 		break;
 	case KEY_BACKSPACE:
 		direction = 'q'; // key to quit the game
@@ -113,8 +124,7 @@ void Snake::Render()
 		entire.pop_back(); // add empty ch to remove last character
 		refresh();
 	}
-	
-	
+
 	// move to the new CharPosition coordinates
 	move(entire[0].y, entire[0].x);
 	addch(partchar); // add a new head

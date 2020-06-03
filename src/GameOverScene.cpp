@@ -7,17 +7,26 @@
 #include <ctime>
 #include <iostream>
 
-GameOverScene::GameOverScene(){
-    Stage *stage1;
-    stage1 = new Stage();
-    stage1->setNowStage(1);
-};
-GameOverScene::~GameOverScene(){}
+Stage *stage;
 
-void GameOverScene::Update(){
-    if (AskUserToPlayAgain() == 'y')ChangeScene(new GameScene());
+GameOverScene::GameOverScene()
+{
+    stage = new Stage();
+    stage->setNowStage(1);
+};
+GameOverScene::~GameOverScene() {}
+
+void GameOverScene::Update()
+{
+    char answer = AskUserToPlayAgain();
+
+    if (answer == 'y')
+        ChangeScene(new GameScene());
+
+    else if (answer == 'n')
+        exit(0);
 }
-void GameOverScene::Render(){}
+void GameOverScene::Render() {}
 
 // clear the screen and centre the cursor
 void GameOverScene::ClearCentre(float x, float y)
@@ -25,10 +34,10 @@ void GameOverScene::ClearCentre(float x, float y)
     initscr();
     noecho();
     getmaxyx(stdscr, maxheight, maxwidth);
-    move((maxheight / y), (maxwidth / x));
+    move((maxheight / 3 * 2 / y), (maxwidth / x));
 }
 
-    // receive user confirmation
+// receive user confirmation
 int GameOverScene::UserInput()
 {
     int UserInput = getch();
@@ -39,7 +48,7 @@ int GameOverScene::UserInput()
     return UserInput;
 }
 
-    // print ask to play again
+// print ask to play again
 int GameOverScene::AskUserToPlayAgain()
 {
     ClearCentre(3.5, 2);

@@ -8,7 +8,7 @@
 class GameOverScene : public IScene
 {
 public:
-    int maxwidth=94, maxheight=39;
+    int maxwidth, maxheight;
 
     GameOverScene();
     ~GameOverScene();

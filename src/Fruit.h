@@ -9,7 +9,6 @@
 class Fruit : public Item
 {
 public:
-    
     Fruit() {}
     ~Fruit() {}
     void Print()
