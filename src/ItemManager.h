@@ -24,6 +24,9 @@ public:
     void Update();
     void PositionItem(std::string check);
     void GetItem(Snake s);
+    void CheckFruit();
+    void CheckPoison();
+    void CheckGate();
 
     bool getEatFruit()
     {

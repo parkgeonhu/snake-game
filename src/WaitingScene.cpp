@@ -3,7 +3,7 @@
 #include "GameScene.h"
 #include "myFunction.h"
 
-Stage *stage;
+extern Stage *stage;
 
 WaitingScene::WaitingScene()
 {
@@ -17,8 +17,13 @@ WaitingScene::~WaitingScene()
 
 void WaitingScene::Update()
 {
-    if (IsUserReady() == 'y')
+    char answer = IsUserReady();
+
+    if (answer == 'y')
         ChangeScene(new GameScene());
+
+    else if (answer == 'n')
+        exit(0);
 }
 
 void WaitingScene::Render()

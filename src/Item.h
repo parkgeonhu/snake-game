@@ -7,14 +7,15 @@ class Item
 {
 public:
     int timeCheck = 0;
-    int maxwidth, maxheight;
     std::vector<CharPosition> data;
     bool eatPoison = false;
+    bool eatFruit = false;
 
     Item()
     {
+        int maxwidth, maxheight;
         getmaxyx(stdscr, maxheight, maxwidth);
-        data.push_back(CharPosition(rand() % (maxwidth - 1) + 1, rand() % (maxheight - 1) + 1));
+        data.push_back(CharPosition(rand() % (maxwidth / 4 * 3 - 1) + 1, rand() % (maxheight - 1) + 1));
     }
     virtual void Print() = 0;
 };

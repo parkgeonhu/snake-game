@@ -4,6 +4,8 @@
 #include "Stage.h"
 #include "Snake.h"
 #include "ItemManager.h"
+#include "Wall.h"
+#include "Format.h"
 #include <iostream>
 #include <vector>
 #include <ncurses.h>
@@ -15,7 +17,8 @@ using int32 = int;
 class GameScene : public IScene
 {
 public:
-	int32 score, maxwidth, maxheight;
+	int32 score;
+	int32 maxwidth, maxheight;
 
 	char edgechar;
 
@@ -23,6 +26,8 @@ public:
 	~GameScene();
 	Snake *snake;
 	ItemManager *itemManager;
+	Wall *wall;
+	Format *format;
 
 	bool isChangeScene;
 

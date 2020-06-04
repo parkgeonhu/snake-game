@@ -5,6 +5,7 @@
 #include "myFunction.h"
 #include "IObject.h"
 #include <unistd.h>
+#include <vector>
 #include <ncurses.h>
 using namespace std;
 extern Stage *stage;
@@ -16,9 +17,9 @@ GameScene::GameScene()
 	srand(time(NULL));
 
 	snake = new Snake();
+	wall = new Wall();
 	itemManager = new ItemManager();
-
-	edgechar = (char)219;
+	format = new Format();
 
 	start_color();
 	init_pair(1, COLOR_BLUE, COLOR_YELLOW);
@@ -31,7 +32,6 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	nodelay(stdscr, false);
-	getch();
 	endwin();
 }
 
@@ -68,28 +68,28 @@ void GameScene::Render()
 // draw the game window
 void GameScene::DrawWindow()
 {
-	for (int32 i = 0; i < maxwidth; i++) // draws top
+	for (int32 i = 0; i < maxwidth / 4 * 3; i++) // draws top
 	{
-		move(0, i);
-		addch(edgechar);
+		wall->data.push_back(CharPosition(i, 0));
+		wall->Print();
 	}
 
-	for (int32 i = 0; i < maxwidth; i++) // draws bottom
+	for (int32 i = 0; i < maxwidth / 4 * 3; i++) // draws bottom
 	{
-		move(maxheight - 2, i);
-		addch(edgechar);
+		wall->data.push_back(CharPosition(i, maxheight - 1));
+		wall->Print();
 	}
 
-	for (int32 i = 0; i < maxheight - 1; i++) // draws left side
+	for (int32 i = 0; i < maxheight; i++) // draws left side
 	{
-		move(i, 0);
-		addch(edgechar);
+		wall->data.push_back(CharPosition(0, i));
+		wall->Print();
 	}
 
-	for (int32 i = 0; i < maxheight - 1; i++) // draws right side
+	for (int32 i = 0; i < maxheight; i++) // draws right side
 	{
-		move(i, maxwidth - 1);
-		addch(edgechar);
+		wall->data.push_back(CharPosition(maxwidth / 4 * 3 - 1, i));
+		wall->Print();
 	}
 	return;
 }
