@@ -21,7 +21,7 @@ public:
     ~ItemManager();
 
     void Render();
-    void Update();
+    void Update(float eTime);
     void PositionItem(std::string check);
     void GetItem(Snake s);
     void CheckFruit();

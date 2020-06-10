@@ -16,6 +16,6 @@ public:
 		this->nowStage = nowStage;
 	}
 
-	void Update();
+	void Update(float eTime);
 	void Render();
 };

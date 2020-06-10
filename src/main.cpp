@@ -20,7 +20,7 @@ int32 main()
 	Init();
 	do
 	{
-		Update();
+		Update(GetElapsedTime());
 		Render();
 	} while (true);
 	// (AskUserToPlayAgain() == 'y');

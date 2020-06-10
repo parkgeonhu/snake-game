@@ -15,7 +15,7 @@ WaitingScene::~WaitingScene()
 {
 }
 
-void WaitingScene::Update()
+void WaitingScene::Update(float eTime)
 {
     char answer = IsUserReady();
 

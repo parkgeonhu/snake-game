@@ -42,7 +42,7 @@ public:
 	// bool GetsFruit();
 	// bool GetsPoisonItem();
 
-	void Update();
+	void Update(float eTime);
 	void Render();
 
 	// void UpdateRunning(float eTime);

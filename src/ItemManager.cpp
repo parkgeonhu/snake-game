@@ -18,7 +18,7 @@ void ItemManager::Render()
 {
 }
 
-void ItemManager::Update()
+void ItemManager::Update(float eTime)
 {
     fruit.timeCheck = fruit.timeCheck % 100;
     poison.timeCheck = poison.timeCheck % 100;

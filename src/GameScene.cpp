@@ -47,14 +47,17 @@ void GameScene::InitGameWindow()
 	return;
 }
 
-void GameScene::Update()
+void GameScene::Update(float eTime)
 {
-	stage->Update();
-	snake->Update();
-	itemManager->Update();
+	stage->Update(eTime);
+	snake->Update(eTime);
+	itemManager->Update(eTime);
 	itemManager->GetItem(*snake);
 	snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
-
+    
+    //* float eTime test code *//
+    // move((maxheight-2)/2,(maxwidth-5)/2);
+    // printw("%f",eTime);
 	usleep(100000);
 }
 
