@@ -10,7 +10,7 @@ Stage::Stage(){
 Stage::~Stage(){
 }
 
-void Stage::Update(){
+void Stage::Update(float eTime){
     
     if(clear){
         refresh();

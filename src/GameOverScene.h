@@ -13,7 +13,7 @@ public:
     GameOverScene();
     ~GameOverScene();
 
-    void Update();
+    void Update(float eTime);
     void Render();
 
     // clear the screen and centre the cursor

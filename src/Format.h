@@ -40,6 +40,6 @@ public:
     }
     ~Format() {}
     void Print() {}
-    void Update() {}
+    void Update(float eTime) {}
     void Render() {}
 };

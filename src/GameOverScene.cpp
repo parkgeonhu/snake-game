@@ -16,7 +16,7 @@ GameOverScene::GameOverScene()
 };
 GameOverScene::~GameOverScene() {}
 
-void GameOverScene::Update()
+void GameOverScene::Update(float eTime)
 {
     char answer = AskUserToPlayAgain();
 

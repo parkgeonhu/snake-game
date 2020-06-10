@@ -23,7 +23,7 @@ public:
 	bool eatFruit = false;
 	bool eatPoison = false;
 
-	void Update();
+	void Update(float eTime);
 	void Render();
 	void initBody();
 	void EatItem(bool fruit, bool poison);

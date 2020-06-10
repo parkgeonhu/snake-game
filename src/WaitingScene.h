@@ -15,7 +15,7 @@ public:
 	WaitingScene();
 	~WaitingScene();
 
-	void Update();
+	void Update(float eTime);
 	void Render();
 
 	void ClearCentre(float x, float y);

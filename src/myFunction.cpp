@@ -1,20 +1,23 @@
 #include "myFunction.h"
 #include "WaitingScene.h"
 
-using namespace std;
+
 IScene *nowScene;
 bool lkey[256],rkey[256];
 
+std::chrono::steady_clock::time_point startTime;
+
 void Init(){
+    startTime = std::chrono::steady_clock::now();
 	nowScene = new WaitingScene();
 	// QueryPerformanceCounter(&LInterval);
 	// QueryPerformanceFrequency(&Frequency);
 	// for(int i=0;i<256;i++) rkey[i] = lkey[i] = false;
 }
 
-void Update(){
+void Update(float eTime){
 	// UpdateKeyState();
-	nowScene->Update();
+	nowScene->Update(eTime);
 }
 
 void Render(){
@@ -25,15 +28,12 @@ void Destroy(){
 	delete nowScene;
 }
 
-// float GetElapsedTime(){
-// 	QueryPerformanceCounter(&RInterval);
-// 	__int64 Interval = (RInterval.QuadPart - LInterval.QuadPart);
-
-// 	float eTime = (double)Interval/(double)Frequency.QuadPart;
-
-// 	LInterval = RInterval;
-// 	return eTime;
-// }
+float GetElapsedTime(){
+    auto endTime = std::chrono::steady_clock::now();
+    std::chrono::duration<float> elapsed_seconds = endTime-startTime;
+	float eTime = (float)elapsed_seconds.count();
+	return eTime;
+}
 
 // void UpdateKeyState()
 // {
@@ -50,8 +50,9 @@ void Destroy(){
 // 	if(lkey[key]==true && rkey[key]==false) return -1;
 // 	return 0;
 // }
-void ChangeScene(IScene *p,bool nowSceneErase)
-{
+
+
+void ChangeScene(IScene *p,bool nowSceneErase){
 	if(nowSceneErase) delete nowScene;
 	nowScene = p;
 }
