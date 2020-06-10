@@ -132,8 +132,8 @@ void Snake::Render()
 	refresh();
 }
 
-void Snake::EatItem(bool fruit, bool poison)
-{
-	eatFruit = fruit;
-	eatPoison = poison;
-}
+// void Snake::EatItem(bool fruit, bool poison)
+// {
+// 	eatFruit = fruit;
+// 	eatPoison = poison;
+// }

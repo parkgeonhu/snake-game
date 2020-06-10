@@ -26,5 +26,6 @@ public:
 	void Update(float eTime);
 	void Render();
 	void initBody();
+    
 	void EatItem(bool fruit, bool poison);
 };

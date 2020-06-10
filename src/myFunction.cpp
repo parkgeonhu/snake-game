@@ -5,11 +5,15 @@
 IScene *nowScene;
 bool lkey[256],rkey[256];
 
+int currentWidth;
+int currentHeight;
+
 std::chrono::steady_clock::time_point startTime;
 
 void Init(){
     startTime = std::chrono::steady_clock::now();
 	nowScene = new WaitingScene();
+    
 	// QueryPerformanceCounter(&LInterval);
 	// QueryPerformanceFrequency(&Frequency);
 	// for(int i=0;i<256;i++) rkey[i] = lkey[i] = false;

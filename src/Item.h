@@ -2,20 +2,28 @@
 #include <vector>
 #include <cstdlib>
 #include "CharPosition.h"
+#include "IObject.h"
 #include <ncurses.h>
-class Item
-{
-public:
-    int timeCheck = 0;
-    std::vector<CharPosition> data;
-    bool eatPoison = false;
-    bool eatFruit = false;
+#include <string>
 
-    Item()
-    {
-        int maxwidth, maxheight;
-        getmaxyx(stdscr, maxheight, maxwidth);
-        data.push_back(CharPosition(rand() % (maxwidth / 4 * 3 - 1) + 1, rand() % (maxheight - 1) + 1));
-    }
-    virtual void Print() = 0;
+
+class Item : public IObject{
+public:
+    float dropTime=0;
+    
+    std::string type="none";
+    
+    Item(std::string t, float eTime);
+	~Item();
+    
+    CharPosition * position;
+    
+    // Item(){
+    //     int maxwidth, maxheight;
+    //     getmaxyx(stdscr, maxheight, maxwidth);
+    //     data.push_back(CharPosition(rand() % (maxwidth / 4 * 3 - 1) + 1, rand() % (maxheight - 1) + 1));
+    // }
+    
+    void Update(float eTime);
+	void Render();
 };
