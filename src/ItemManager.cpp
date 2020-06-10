@@ -5,7 +5,7 @@
 #include "Item.h"
 #include "ItemManager.h"
 #include "GameScene.h"
-#define DROP_INTERVAL 1.0f
+
 
 ItemManager::ItemManager()
 {
