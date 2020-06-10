@@ -3,7 +3,11 @@
 #include <chrono>
 #include <iostream>
 
+#define DROP_INTERVAL 3.0f
+
+
 using namespace std;
+
 
 void Init();
 void Update(float eTime); //Elapsed Time
