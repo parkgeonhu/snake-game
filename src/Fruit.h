@@ -5,18 +5,12 @@
 #include "Item.h"
 #include <ncurses.h>
 #include <cstdlib>
+#include <string>
 
 class Fruit : public Item
 {
 public:
-    Fruit() {}
+    Fruit(std::string t, float eTime);
     ~Fruit() {}
-    void Print()
-    {
-        move(data[0].y, data[0].x);
-        addch('$');
-        move(data[data.size() - 1].y, data[data.size() - 1].x);
-        addch(' ');
-    }
 };
 #endif

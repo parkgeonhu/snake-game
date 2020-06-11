@@ -54,10 +54,10 @@ void GameScene::Update(float eTime)
 	itemManager->Update(eTime);
 	// itemManager->GetItem(*snake);
 	// snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
-    
-    //* float eTime test code *//
-    // move((maxheight-2)/2,(maxwidth-5)/2);
-    // printw("%f",eTime);
+
+	//* float eTime test code *//
+	// move((maxheight-2)/2,(maxwidth-5)/2);
+	// printw("%f",eTime);
 	usleep(100000);
 }
 
@@ -94,6 +94,8 @@ void GameScene::DrawWindow()
 		wall->data.push_back(CharPosition(maxwidth / 4 * 3 - 1, i));
 		wall->Print();
 	}
+	wall->InnerWall();
+
 	return;
 }
 

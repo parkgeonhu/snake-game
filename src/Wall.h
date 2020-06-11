@@ -1,26 +1,27 @@
 #pragma once
 #include <vector>
 #include "CharPosition.h"
+#include "IObject.h"
 #include <ncurses.h>
 #include <vector>
 #include <cstdlib>
 
-class Wall
+class Wall : public IObject
 {
 public:
     char edgechar = (char)219;
     std::vector<CharPosition> data;
+    std::vector<CharPosition> innerWall;
 
-    Wall() {}
-    Wall(int x, int y)
-    {
-        data.push_back(CharPosition(x, y));
-    }
+    Wall();
+    Wall(int x, int y);
+    ~Wall();
 
-    ~Wall() {}
-    void Print()
-    {
-        move(data[data.size() - 1].y, data[data.size() - 1].x);
-        addch(edgechar);
-    }
+    void Update(float eTime);
+    void Render();
+
+    void Print();
+    void Gate();
+    void InnerWall();
+    void PrintInnerWall();
 };
