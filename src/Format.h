@@ -40,6 +40,8 @@ public:
     }
     ~Format() {}
     void Print() {}
-    void Update() {}
+    void Update()
+    {
+    }
     void Render() {}
 };
