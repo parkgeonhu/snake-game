@@ -1,5 +1,6 @@
 #pragma once
 #include "IObject.h"
+#include "WallManager.h"
 #include "CharPosition.h"
 #include "Snake.h"
 #include "IScene.h"
@@ -13,6 +14,7 @@ class MapManager : public IScene
 {
 public:
     int mapheight, mapwidth;
+    WallManager *wallManager;
 
     char data[100][100];
 
