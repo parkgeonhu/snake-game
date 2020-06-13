@@ -4,7 +4,7 @@
 #include <ncurses.h>
 #include <cstdlib>
 
-Stage *stage1;
+extern Stage *stage;
 
 WallManager::WallManager()
 {
@@ -102,10 +102,10 @@ void WallManager::Gate()
 void WallManager::InnerWall()
 {
 
-    if (stage1->getNowStage() == 1)
+    if (stage->getNowStage() == 1)
     {
     }
-    else if (stage1->getNowStage() == 2)
+    else if (stage->getNowStage() == 2)
     {
         for (int i = maxwidth / 8 * 3 - 10; i < maxwidth / 8 * 3 + 10; i++)
         {
@@ -124,7 +124,7 @@ void WallManager::InnerWall()
             }
         }
     }
-    else if (stage1->getNowStage() == 3)
+    else if (stage->getNowStage() == 3)
     {
         for (int i = 20; i < maxwidth / 4 * 3 - 20; i++)
         {
@@ -138,7 +138,7 @@ void WallManager::InnerWall()
             PrintInnerWall();
         }
     }
-    else if (stage1->getNowStage() == 4)
+    else if (stage->getNowStage() == 4)
     {
         for (int i = 20; i < maxwidth / 4 * 3 - 20; i++)
         {

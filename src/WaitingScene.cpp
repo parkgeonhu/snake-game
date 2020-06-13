@@ -11,7 +11,7 @@ extern int currentHeight;
 WaitingScene::WaitingScene()
 {
     stage = new Stage();
-    stage->setNowStage(3);
+    stage->setNowStage(1);
 }
 
 WaitingScene::~WaitingScene()
@@ -42,7 +42,7 @@ void WaitingScene::ClearCentre(float x, float y)
     initscr();
     noecho();
     getmaxyx(stdscr, maxheight, maxwidth);
-    
+
     //myFunction에 있는 변수
     getmaxyx(stdscr, currentHeight, currentWidth);
 
