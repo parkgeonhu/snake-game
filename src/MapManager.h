@@ -2,6 +2,7 @@
 #include "IObject.h"
 #include "WallManager.h"
 #include "CharPosition.h"
+#include "myFunction.h"
 #include "Snake.h"
 #include "IScene.h"
 #include <vector>
@@ -10,13 +11,12 @@
 #include <string>
 #include <ctime>
 
-class MapManager : public IScene
+class MapManager : public IObject
 {
 public:
-    int mapheight, mapwidth;
     WallManager *wallManager;
 
-    char data[100][100];
+    char data[HEIGHT][WIDTH];
 
     float lastDropTime = 0;
 
@@ -28,6 +28,14 @@ public:
 
     void Render();
     void Update(float eTime);
+    
+    void * GetData();
+    
+    void PatchData(int y, int x, char patchData);
+    
+    
+    void Print();
+    void Load();
 
     void LoadMap();
     void PrintMap();

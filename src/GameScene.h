@@ -12,6 +12,9 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "MapManager.h"
+
+
 using int32 = int;
 
 class GameScene : public IScene
@@ -27,6 +30,7 @@ public:
 	Snake *snake;
 	ItemManager *itemManager;
 	WallManager *wallManager;
+    
 	Format *format;
 
 	bool isChangeScene;

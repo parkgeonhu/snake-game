@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 
+
 class WaitingScene : public IScene
 {
 public:
@@ -14,7 +15,7 @@ public:
 
 	WaitingScene();
 	~WaitingScene();
-
+    
 	void Update(float eTime);
 	void Render();
 

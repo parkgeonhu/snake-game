@@ -3,6 +3,9 @@
 #include "GameOverScene.h"
 #include "IScene.h"
 #include "Snake.h"
+#include "MapManager.h"
+
+extern MapManager * mapManager;
 
 Snake::Snake()
 {
@@ -22,10 +25,8 @@ void Snake::initBody()
 	{
 		entire.push_back(CharPosition(30 + i, 10));
 	}
-	for (int32 i = 0; i < entire.size(); i++)
-	{
-		move(entire[i].y, entire[i].x);
-		addch(partchar);
+	for (int32 i = 0; i < entire.size(); i++){
+        mapManager->PatchData(entire[i].y, entire[i].x, '3');
 	}
 }
 

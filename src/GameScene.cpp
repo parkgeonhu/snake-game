@@ -4,6 +4,9 @@
 #include "ItemManager.h"
 #include "myFunction.h"
 #include "IObject.h"
+
+#include "MapManager.h"
+
 #include <unistd.h>
 #include <vector>
 #include <ncurses.h>
@@ -12,17 +15,24 @@ extern Stage *stage;
 // Unreal coding standards
 using int32 = int;
 
+MapManager * mapManager;
+
+
 GameScene::GameScene()
 {
 	srand(time(NULL));
 
-	snake = new Snake();
-	wallManager = new WallManager();
-	itemManager = new ItemManager();
-	format = new Format();
+	
+	// wallManager = new WallManager();
+	// itemManager = new ItemManager();
+    
+    mapManager=new MapManager();
+    mapManager->Load();
+    
+    snake = new Snake();
 
-	start_color();
-	init_pair(1, COLOR_BLUE, COLOR_YELLOW);
+    // format = new Format();
+
 
 	InitGameWindow();
 	DrawWindow();
@@ -49,10 +59,12 @@ void GameScene::InitGameWindow()
 
 void GameScene::Update(float eTime)
 {
-	stage->Update(eTime);
-	snake->Update(eTime);
-	itemManager->Update(eTime);
-	wallManager->Update(eTime);
+	// stage->Update(eTime);
+	// snake->Update(eTime);
+	// itemManager->Update(eTime);
+	// wallManager->Update(eTime);
+    
+    
 	// itemManager->GetItem(*snake);
 	// snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
 
@@ -62,43 +74,47 @@ void GameScene::Update(float eTime)
 	usleep(100000);
 }
 
-void GameScene::Render()
-{
-	stage->Render();
-	snake->Render();
-	itemManager->Render();
-	wallManager->Render();
+void GameScene::Render(){
+     char (*data)[WIDTH]=(char(*)[WIDTH])mapManager->GetData();
+    for(int i = 0; i < HEIGHT; i++){
+      for(int j = 0; j < WIDTH; j++){
+        switch(data[i][j]){
+          case 48:
+            mvaddch(i, j, ' ');
+            break;
+          case 49:
+            mvaddch(i, j, '-');
+            break;
+          case 50:
+            mvaddch(i, j, 'X');
+            break;
+          case 51:
+            mvaddch(i, j, 'H');
+            break;
+          case 52:
+            mvaddch(i, j, 'B');
+            break;
+          case 53:
+            mvaddch(i, j, 'G');
+            break;
+          case 54:
+            mvaddch(i, j, 'P');
+            break;
+          case 55:
+            mvaddch(i, j, '?');
+            break;
+          case 57:
+            mvaddch(i, j, ' ');
+          }
+     }
+   }
+    refresh();
 }
 
 // draw the game window
 void GameScene::DrawWindow()
 {
-	for (int32 i = 0; i < maxwidth / 4 * 3; i++) // draws top
-	{
-		wallManager->outerWall.push_back(CharPosition(i, 0));
-		wallManager->PrintOuterWall();
-	}
-
-	for (int32 i = 0; i < maxwidth / 4 * 3; i++) // draws bottom
-	{
-		wallManager->outerWall.push_back(CharPosition(i, maxheight - 1));
-		wallManager->PrintOuterWall();
-	}
-
-	for (int32 i = 0; i < maxheight; i++) // draws left side
-	{
-		wallManager->outerWall.push_back(CharPosition(0, i));
-		wallManager->PrintOuterWall();
-	}
-
-	for (int32 i = 0; i < maxheight; i++) // draws right side
-	{
-		wallManager->outerWall.push_back(CharPosition(maxwidth / 4 * 3 - 1, i));
-		wallManager->PrintOuterWall();
-	}
-	wallManager->InnerWall();
-
-	return;
+   
 }
 
 // // print score at bottom of window
