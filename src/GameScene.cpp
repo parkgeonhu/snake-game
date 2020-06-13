@@ -17,7 +17,7 @@ GameScene::GameScene()
 	srand(time(NULL));
 
 	snake = new Snake();
-	wall = new Wall();
+	wallManager = new WallManager();
 	itemManager = new ItemManager();
 	format = new Format();
 
@@ -52,12 +52,13 @@ void GameScene::Update(float eTime)
 	stage->Update(eTime);
 	snake->Update(eTime);
 	itemManager->Update(eTime);
+	wallManager->Update(eTime);
 	// itemManager->GetItem(*snake);
 	// snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
-    
-    //* float eTime test code *//
-    // move((maxheight-2)/2,(maxwidth-5)/2);
-    // printw("%f",eTime);
+
+	//* float eTime test code *//
+	// move((maxheight-2)/2,(maxwidth-5)/2);
+	// printw("%f",eTime);
 	usleep(100000);
 }
 
@@ -66,6 +67,7 @@ void GameScene::Render()
 	stage->Render();
 	snake->Render();
 	itemManager->Render();
+	wallManager->Render();
 }
 
 // draw the game window
@@ -73,27 +75,29 @@ void GameScene::DrawWindow()
 {
 	for (int32 i = 0; i < maxwidth / 4 * 3; i++) // draws top
 	{
-		wall->data.push_back(CharPosition(i, 0));
-		wall->Print();
+		wallManager->outerWall.push_back(CharPosition(i, 0));
+		wallManager->PrintOuterWall();
 	}
 
 	for (int32 i = 0; i < maxwidth / 4 * 3; i++) // draws bottom
 	{
-		wall->data.push_back(CharPosition(i, maxheight - 1));
-		wall->Print();
+		wallManager->outerWall.push_back(CharPosition(i, maxheight - 1));
+		wallManager->PrintOuterWall();
 	}
 
 	for (int32 i = 0; i < maxheight; i++) // draws left side
 	{
-		wall->data.push_back(CharPosition(0, i));
-		wall->Print();
+		wallManager->outerWall.push_back(CharPosition(0, i));
+		wallManager->PrintOuterWall();
 	}
 
 	for (int32 i = 0; i < maxheight; i++) // draws right side
 	{
-		wall->data.push_back(CharPosition(maxwidth / 4 * 3 - 1, i));
-		wall->Print();
+		wallManager->outerWall.push_back(CharPosition(maxwidth / 4 * 3 - 1, i));
+		wallManager->PrintOuterWall();
 	}
+	wallManager->InnerWall();
+
 	return;
 }
 
