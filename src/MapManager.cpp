@@ -1,4 +1,5 @@
 #include "MapManager.h"
+#include "myFunction.h"
 #include <vector>
 #include <fstream>
 
@@ -6,20 +7,63 @@ extern Stage *stage;
 
 MapManager::MapManager() // load txt file. named stageName. ex) 1.txt 2.txt 3.txt 4.txt
 {
-    std::ifstream readFile;
-    wallManager = new WallManager();
-    string map = std::to_string(stage->getNowStage()) + ".txt";
-    readFile.open(map);
-    int cnt = 0;
-
-    while (!readFile.eof())
-    {
-        readFile.getline(data[cnt], 100);
-        cnt++;
-    }
-
-    LoadMap();
 }
+
+void MapManager::Load(){
+
+    
+    
+    std::ifstream readFile;
+    // string src = "map/map"+std::to_string(stage->getNowStage()) + ".txt";
+    string src = "map/map1.txt";
+
+    readFile.open(src);
+    int height = 0;
+
+    while (!readFile.eof()){
+        char temp[120];
+        readFile.getline(temp, 120);
+        
+        for(int i=0;i<WIDTH;i++){
+            data[height][i]=temp[i];
+        }
+        
+        height++;
+    }
+    
+    
+    /* data가 올바르게 들어갔는지 확인하기 위한 검증 코드*/
+	// std::string Path = "test.txt";
+
+	// std::ofstream writeFile(Path);
+	// if (writeFile.is_open())
+	// {
+	// for(int i=0;i<HEIGHT;i++){
+	// for(int j = 0; j < WIDTH; j++){
+	// writeFile <<data[i][j];
+	// // cout<<data[i][j];
+	// }
+	// writeFile << "\n";
+	// }
+		
+	// }
+}
+
+void * MapManager::GetData(){
+    return data;
+}
+
+void MapManager::PatchData(int y, int x, char patchData){
+    data[y][x]=patchData;
+}
+
+void MapManager::Print(){
+    for(int i=0;i<HEIGHT;i++){
+        cout<<data[i]<<endl;
+    }
+}
+
+
 MapManager::~MapManager()
 {
 }
@@ -28,28 +72,28 @@ void MapManager::Render()
 }
 void MapManager::Update(float eTime)
 {
-    PrintMap();
+    // PrintMap();
 }
-void MapManager::LoadMap() // load Map. save innerWall & outerWall
-{
-    for (int i = 0; i < mapheight; i++)
-    {
-        for (int j = 0; j < mapwidth; j++)
-        {
-            if (data[i][j] == '#') // save outerWall data
-            {
-                wallManager->outerWall.push_back(CharPosition(j, i));
-            }
+// void MapManager::LoadMap() // load Map. save innerWall & outerWall
+// {
+//     for (int i = 0; i < mapheight; i++)
+//     {
+//         for (int j = 0; j < mapwidth; j++)
+//         {
+//             if (data[i][j] == '#') // save outerWall data
+//             {
+//                 wallManager->outerWall.push_back(CharPosition(j, i));
+//             }
 
-            else if (data[i][j] == 'O') // save innerWall data
-            {
-                wallManager->outerWall.push_back(CharPosition(j, i));
-            }
-        }
-    }
-}
-void MapManager::PrintMap()
-{
-    wallManager->PrintInnerWall();
-    wallManager->PrintOuterWall();
-}
+//             else if (data[i][j] == 'O') // save innerWall data
+//             {
+//                 wallManager->outerWall.push_back(CharPosition(j, i));
+//             }
+//         }
+//     }
+// }
+// void MapManager::PrintMap()
+// {
+//     wallManager->PrintInnerWall();
+//     wallManager->PrintOuterWall();
+// }

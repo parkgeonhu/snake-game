@@ -20,10 +20,18 @@ public:
 	int choiceCount;
 	int select;
 	int maxwidth, maxheight;
-	bool eatFruit = false;
-	bool eatPoison = false;
+	bool isGrow = false;
+	bool isShrink = false;
 
 	void Update(float eTime);
+    
+    void PushData();
+    
+    void Grow();
+    void Shrink();
+    
+    void CutTail();
+    
 	void Render();
 	void initBody();
     
