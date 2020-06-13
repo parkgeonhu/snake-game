@@ -32,20 +32,21 @@ void MapManager::Load(){
     }
     
     
-    std::string Path = "test.txt";
+    /* data가 올바르게 들어갔는지 확인하기 위한 검증 코드*/
+	// std::string Path = "test.txt";
 
-	std::ofstream writeFile(Path);
-	if (writeFile.is_open())
-	{
-        for(int i=0;i<HEIGHT;i++){
-            for(int j = 0; j < WIDTH; j++){
-                writeFile <<data[i][j];
-            // cout<<data[i][j];
-            }
-            writeFile << "\n";
-        }
+	// std::ofstream writeFile(Path);
+	// if (writeFile.is_open())
+	// {
+	// for(int i=0;i<HEIGHT;i++){
+	// for(int j = 0; j < WIDTH; j++){
+	// writeFile <<data[i][j];
+	// // cout<<data[i][j];
+	// }
+	// writeFile << "\n";
+	// }
 		
-	}
+	// }
 }
 
 void * MapManager::GetData(){

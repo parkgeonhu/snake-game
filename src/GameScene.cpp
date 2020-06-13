@@ -60,7 +60,7 @@ void GameScene::InitGameWindow()
 void GameScene::Update(float eTime)
 {
 	// stage->Update(eTime);
-	// snake->Update(eTime);
+	snake->Update(eTime);
 	// itemManager->Update(eTime);
 	// wallManager->Update(eTime);
     

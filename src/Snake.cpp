@@ -19,19 +19,26 @@ Snake::~Snake()
 {
 }
 
+void Snake::PushData(){
+    for (int32 i = 0; i < entire.size(); i++){
+        if(i==0){
+            mapManager->PatchData(entire[i].y, entire[i].x, '3');
+        }
+        else{
+            mapManager->PatchData(entire[i].y, entire[i].x, '4');
+        }
+	}
+}
+
 void Snake::initBody()
 {
 	for (int32 i = 0; i < 5; i++)
 	{
 		entire.push_back(CharPosition(30 + i, 10));
 	}
-	for (int32 i = 0; i < entire.size(); i++){
-        mapManager->PatchData(entire[i].y, entire[i].x, '3');
-	}
 }
 
-void Snake::Update(float eTime)
-{
+void Snake::Update(float eTime){
 	//  ths snake's size below 3. Chanege GameScene to GameOverScene
 	int32 KeyPressed;
 	if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= maxwidth / 4 * 3 - 1) || (entire[0].y >= maxheight - 1 || entire[0].y <= 0))
@@ -97,40 +104,55 @@ void Snake::Update(float eTime)
 	{
 		entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y + 1));
 	}
+    
+    //isGrow는 false일 때 entire 벡터에 갱신된 head가 추가되면 맨 뒤에 있는 entire 원소 제거
+    if(isGrow==false){
+        CutTail();
+    }
 
-	refresh();
+	
+    PushData();
 }
+
+void Snake::CutTail(){
+    mapManager->PatchData(entire[entire.size() - 1].y, entire[entire.size() - 1].x,'0');
+    entire.pop_back();
+}
+
+void Snake::Grow(){
+    isGrow=true;
+}
+
+void Snake::Shrink(){
+    isShrink=true;
+    CutTail();
+}
+
 
 void Snake::Render()
 {
-	// the snake doesn't eat fruit, remains same size
-	if (!(eatFruit || eatPoison)) // 작아지는 아이템을 안 먹었을 경우
-	{
-		move(entire[entire.size() - 1].y, entire[entire.size() - 1].x); // moves at the end of the tail
-		printw(" ");													// add empty ch to remove last character
-		refresh();
-		entire.pop_back(); // removes the last element in the vector, reducing the container size by one
-	}
-	else if (eatFruit)
-	{
-		refresh();
-	}
-	else if (eatPoison)
-	{
-		move(entire[entire.size() - 1].y, entire[entire.size() - 1].x); // moves at the end of the tail
-		printw(" ");
-		entire.pop_back();
-		move(entire[entire.size() - 1].y, entire[entire.size() - 1].x); // moves at the end of the tail
-		printw(" ");
-		entire.pop_back(); // add empty ch to remove last character
-		refresh();
-	}
+	// // the snake doesn't eat fruit, remains same size
+	// if (!(eatFruit || eatPoison)) // 작아지는 아이템을 안 먹었을 경우
+	// {
+        
+	// }
+	// else if (eatFruit)
+	// {
+	// 	refresh();
+	// }
+	// else if (eatPoison){
+	// 	entire.pop_back();
+	// 	mapManager->PatchData(entire[entire.size() - 1].y, entire[entire.size() - 1].x,'0');
+	// 	printw(" ");
+	// 	entire.pop_back(); // add empty ch to remove last character
+	// 	refresh();
+	// }
 
-	// move to the new CharPosition coordinates
-	move(entire[0].y, entire[0].x);
-	addch(partchar); // add a new head
+	// // move to the new CharPosition coordinates
+	// move(entire[0].y, entire[0].x);
+	// addch(partchar); // add a new head
 
-	refresh();
+	// refresh();
 }
 
 // void Snake::EatItem(bool fruit, bool poison)
