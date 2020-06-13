@@ -4,7 +4,7 @@
 #include "Stage.h"
 #include "Snake.h"
 #include "ItemManager.h"
-#include "Wall.h"
+#include "WallManager.h"
 #include "Format.h"
 #include <iostream>
 #include <vector>
@@ -26,7 +26,7 @@ public:
 	~GameScene();
 	Snake *snake;
 	ItemManager *itemManager;
-	Wall *wall;
+	WallManager *wallManager;
 	Format *format;
 
 	bool isChangeScene;

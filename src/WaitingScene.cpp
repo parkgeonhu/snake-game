@@ -11,7 +11,7 @@ extern int currentHeight;
 WaitingScene::WaitingScene()
 {
     stage = new Stage();
-    stage->setNowStage(1);
+    stage->setNowStage(3);
 }
 
 WaitingScene::~WaitingScene()
