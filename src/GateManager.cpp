@@ -2,35 +2,33 @@
 #include <ctime>
 #include <string>
 #include "Snake.h"
-#include "Item.h"
-#include "ItemManager.h"
+#include "Gate.h"
+#include "GateManager.h"
 #include "GameScene.h"
 
 extern MapManager * mapManager;
 
 
 
-ItemManager::ItemManager()
-{
-    getmaxyx(stdscr, maxheight, maxwidth);
+GateManager::GateManager(){
 }
 
-ItemManager::~ItemManager()
+GateManager::~GateManager()
 {
 }
 
-void ItemManager::Render(){
+void GateManager::Render(){
 
 }
 
-bool isExceedTime(Item item, float eTime){
-    if(eTime-item.dropTime>5){
+bool isExceedTime(Gate Gate, float eTime){
+    if(eTime-Gate.dropTime>5){
         return true;
     }
     return false;
 }
 
-void ItemManager::DeleteCollisionData(int y, int x){
+void GateManager::DeleteCollisionData(int y, int x){
     
     int target;
     
@@ -43,15 +41,15 @@ void ItemManager::DeleteCollisionData(int y, int x){
     
 }
 
-void ItemManager::Update(float eTime){
+void GateManager::Update(float eTime){
     int * temp=new int[data.size()];
-    vector<Item>::iterator iter;
+    vector<Gate>::iterator iter;
     
     
-    //item drop
+    //Gate drop
     if(eTime-lastDropTime>DROP_INTERVAL){
-        PositionItem("poison",eTime);
-        PositionItem("fruit",eTime);
+        PositionGate("poison",eTime);
+        PositionGate("fruit",eTime);
         lastDropTime=eTime;
     }
     
@@ -78,17 +76,17 @@ void ItemManager::Update(float eTime){
     
 }
 
-void ItemManager::PositionItem(std::string check, float eTime)
+void GateManager::PositionGate(std::string check, float eTime)
 {
     if (check == "fruit"){
-        data.push_back(Item("fruit",eTime));
+        data.push_back(Gate("fruit",eTime));
     }
     else if (check == "poison"){
-        data.push_back(Item("poison",eTime));
+        data.push_back(Gate("poison",eTime));
     }
 }
 
-void ItemManager::PushData(){
+void GateManager::PushData(){
     for (int32 i = 0; i < data.size(); i++){
         if(data[i].type=="fruit"){
             mapManager->PatchData(data[i].position.y, data[i].position.x, '5');
@@ -103,16 +101,3 @@ void ItemManager::PushData(){
         }
 	}
 }
-
-// void ItemManager::GetItem(Snake s)
-// {
-//     if (s.entire[0].x == fruit.data[0].x && s.entire[0].y == fruit.data[0].y)
-//         fruit.eatFruit = true;
-//     else
-//         fruit.eatFruit = false;
-
-//     if (s.entire[0].x == poison.data[0].x && s.entire[0].y == poison.data[0].y)
-//         poison.eatPoison = true;
-//     else
-//         poison.eatPoison = false;
-// }

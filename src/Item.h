@@ -16,7 +16,7 @@ public:
     Item(std::string t, float eTime);
 	~Item();
     
-    CharPosition * position;
+    CharPosition position;
     
     // Item(){
     //     int maxwidth, maxheight;

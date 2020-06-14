@@ -23,7 +23,8 @@ CharPosition getRandPosition(){
 
 Item::Item(std::string t,float eTime) : type(t), dropTime(eTime) {
     CharPosition temp=getRandPosition();
-    position=new CharPosition(temp.x,temp.y);
+    position.x=temp.x;
+    position.y=temp.y;
 }
 
 Item::~Item(){

@@ -66,9 +66,11 @@ void GameScene::ProcessCollision(){
     int x=snake->GetHead().x;
     switch(mapManager->data[y][x]){
           case '5':
+            itemManager->DeleteCollisionData(y, x);
             snake->Grow();
             break;
           case '6':
+            itemManager->DeleteCollisionData(y, x);
             snake->Shrink();
             break;
           case '7':
