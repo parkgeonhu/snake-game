@@ -38,6 +38,11 @@ void Snake::initBody()
 	}
 }
 
+
+void Snake::SetDirection(char ch){
+	direction=ch;
+}
+
 void Snake::Update(float eTime){
 	//  ths snake's size below 3. Chanege GameScene to GameOverScene
 	int32 KeyPressed;

@@ -27,6 +27,8 @@ public:
     
     void PushData();
     
+    void SetDirection();
+    
     void Grow();
     void Shrink();
     
