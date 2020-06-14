@@ -24,12 +24,14 @@ public:
     ItemManager();
     ~ItemManager();
 
+
     void Render();
     void Update(float eTime);
     void PositionItem(std::string check, float eTime);
     
     
     
+    void PushData();
     void CheckFruit();
     void CheckPoison();
     void CheckGate();

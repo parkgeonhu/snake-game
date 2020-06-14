@@ -16,6 +16,7 @@ public:
 	~Snake();
 
 	std::vector<CharPosition> entire;
+    bool isDied=false;
 	char partchar, direction;
 	int choiceCount;
 	int select;
@@ -27,15 +28,21 @@ public:
     
     void PushData();
     
-    void SetDirection();
+    void SetDirection(char ch);
+    
+    bool IsCollision();
     
     void Grow();
     void Shrink();
+    
+    CharPosition GetHead();
     
     void CutTail();
     
 	void Render();
 	void initBody();
+    
+    
     
 	void EatItem(bool fruit, bool poison);
 };

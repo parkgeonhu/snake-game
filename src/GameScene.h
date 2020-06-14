@@ -48,6 +48,7 @@ public:
 
 	void Update(float eTime);
 	void Render();
+    void ProcessCollision();
 
 	// void UpdateRunning(float eTime);
 	void UpdateGameover(float eTime);
