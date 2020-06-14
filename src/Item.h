@@ -18,6 +18,9 @@ public:
     
     CharPosition position;
     
+    CharPosition getRandPosition();
+
+    
     // Item(){
     //     int maxwidth, maxheight;
     //     getmaxyx(stdscr, maxheight, maxwidth);

@@ -4,7 +4,7 @@
 #include "Stage.h"
 #include "Snake.h"
 #include "ItemManager.h"
-#include "WallManager.h"
+#include "GateManager.h"
 #include "Format.h"
 #include <iostream>
 #include <vector>
@@ -29,7 +29,7 @@ public:
 	~GameScene();
 	Snake *snake;
 	ItemManager *itemManager;
-	WallManager *wallManager;
+	GateManager *gateManager;
     
 	Format *format;
 

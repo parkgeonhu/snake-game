@@ -7,7 +7,7 @@
 
 extern MapManager * mapManager;
 
-CharPosition getRandPosition(){
+CharPosition Item::getRandPosition(){
     CharPosition temp;
     while(1){
         int x=rand() % (WIDTH);

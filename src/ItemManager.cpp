@@ -51,6 +51,7 @@ void ItemManager::Update(float eTime){
     //item drop
     if(eTime-lastDropTime>DROP_INTERVAL){
         PositionItem("poison",eTime);
+        PushData();
         PositionItem("fruit",eTime);
         lastDropTime=eTime;
     }

@@ -9,6 +9,20 @@
 extern MapManager * mapManager;
 
 
+CharPosition GateManager::getRandPosition(){
+    CharPosition temp;
+    while(1){
+        int x=rand() % (WIDTH);
+        int y=rand() % (HEIGHT);
+        if(mapManager->data[y][x]=='1'){
+            temp.x=x;
+            temp.y=y;
+            break;
+        }
+    }
+    return temp;
+}
+
 
 GateManager::GateManager(){
 }
@@ -21,83 +35,60 @@ void GateManager::Render(){
 
 }
 
-bool isExceedTime(Gate Gate, float eTime){
-    if(eTime-Gate.dropTime>5){
-        return true;
-    }
-    return false;
-}
+// CharPosition GateManager::getNextGate(){
+    
+// }
 
-void GateManager::DeleteCollisionData(int y, int x){
-    
-    int target;
-    
-    for(int i=0;i<data.size();i++){
-        if(data[i].position.x==x && data[i].position.y==y){
-            target=i;
-        }
-    }
-    data.erase(data.begin()+target);
-    
-}
 
+
+
+//[TO-DO]gate는 5초 지나면 사라지게 두고, snake의 head를 어떤 함수가 내뱉는 gate의 위치로 옮겨야 함, gate는 snake 출입 중일 때는 사라지면 안됨.
 void GateManager::Update(float eTime){
     int * temp=new int[data.size()];
-    vector<Gate>::iterator iter;
+    vector<CharPosition>::iterator iter;
     
     
     //Gate drop
-    if(eTime-lastDropTime>DROP_INTERVAL){
-        PositionGate("poison",eTime);
-        PositionGate("fruit",eTime);
+    if(eTime-lastDropTime>DROP_GATE_INTERVAL && isEntering==false){
+        for (int i=data.size()-1;i>=0;i--){
+            mapManager->PatchData(data[i].y, data[i].x, '1');
+            data.pop_back();            
+        }
+        PositionGate();
         lastDropTime=eTime;
     }
     
-    for(int i=0;i<data.size();i++){
-        if(isExceedTime(data[i],eTime)){
-            temp[i]=1;
+    // for(int i=0;i<data.size();i++){
+    //     if(isExceedTime(data[i],eTime)){
+    //         temp[i]=1;
             
-        }
-        else{
-            temp[i]=0;
-        }        
-    }
+    //     }
+    //     else{
+    //         temp[i]=0;
+    //     }        
+    // }
     
-    for(int i=data.size()-1;i>=0;i--){
-        if(temp[i]==1){
-            mapManager->PatchData(data[i].position.y, data[i].position.x, '0');
-            data.erase(data.begin()+i);
-        }
-    }
-    
-    delete[] temp;
+    // for(int i=data.size()-1;i>=0;i--){
+    //     if(temp[i]==1){
+    //         mapManager->PatchData(data[i].position.y, data[i].position.x, '0');
+    //         data.erase(data.begin()+i);
+    //     }
+    // }
     
     PushData();
     
 }
 
-void GateManager::PositionGate(std::string check, float eTime)
-{
-    if (check == "fruit"){
-        data.push_back(Gate("fruit",eTime));
-    }
-    else if (check == "poison"){
-        data.push_back(Gate("poison",eTime));
-    }
+void GateManager::PositionGate(){
+    CharPosition temp=getRandPosition();
+    data.push_back(temp);
+    PushData();
+    temp=getRandPosition();
+    data.push_back(temp);
 }
 
 void GateManager::PushData(){
     for (int32 i = 0; i < data.size(); i++){
-        if(data[i].type=="fruit"){
-            mapManager->PatchData(data[i].position.y, data[i].position.x, '5');
-            // mvaddch(data[i].position->y, data[i].position->x,'5');
-        }
-        else if(data[i].type=="poison"){
-            mapManager->PatchData(data[i].position.y, data[i].position.x, '6');
-            // mvaddch(data[i].position->y, data[i].position->x,'5');
-        }
-        else{
-            
-        }
+        mapManager->PatchData(data[i].y, data[i].x, '7');
 	}
 }

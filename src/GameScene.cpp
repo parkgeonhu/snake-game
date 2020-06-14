@@ -24,15 +24,19 @@ GameScene::GameScene()
 	srand(time(NULL));
 
 	
-	// wallManager = new WallManager();
 	
     player=new Player();
+    
+    //mapManager를 먼저 생성시켜줘야함
     mapManager=new MapManager();
     mapManager->Load();
     
     snake = new Snake();
     itemManager = new ItemManager();
-
+	gateManager = new GateManager();
+    
+    
+    
     // format = new Format();
 
 
@@ -94,11 +98,12 @@ void GameScene::Update(float eTime)
 
     snake->Update(eTime);
 	itemManager->Update(eTime);
+	gateManager->Update(eTime);
+
     if(snake->IsCollision()){
         ProcessCollision();
     }
     
-	// wallManager->Update(eTime);
     
     
 	// itemManager->GetItem(*snake);
