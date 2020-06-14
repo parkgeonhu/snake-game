@@ -16,7 +16,10 @@ public:
     Item(std::string t, float eTime);
 	~Item();
     
-    CharPosition * position;
+    CharPosition position;
+    
+    CharPosition getRandPosition();
+
     
     // Item(){
     //     int maxwidth, maxheight;

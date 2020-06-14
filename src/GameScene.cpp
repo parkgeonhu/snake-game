@@ -4,7 +4,7 @@
 #include "ItemManager.h"
 #include "myFunction.h"
 #include "IObject.h"
-
+#include "Player.h"
 #include "MapManager.h"
 
 #include <unistd.h>
@@ -16,6 +16,7 @@ extern Stage *stage;
 using int32 = int;
 
 MapManager * mapManager;
+Player * player;
 
 
 GameScene::GameScene()
@@ -23,14 +24,19 @@ GameScene::GameScene()
 	srand(time(NULL));
 
 	
-	// wallManager = new WallManager();
-	// itemManager = new ItemManager();
+	
+    player=new Player();
     
+    //mapManager를 먼저 생성시켜줘야함
     mapManager=new MapManager();
     mapManager->Load();
     
     snake = new Snake();
-
+    itemManager = new ItemManager();
+	gateManager = new GateManager();
+    
+    
+    
     // format = new Format();
 
 
@@ -41,6 +47,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+    //delete mapManager;
 	nodelay(stdscr, false);
 	endwin();
 }
@@ -57,12 +64,46 @@ void GameScene::InitGameWindow()
 	return;
 }
 
+
+void GameScene::ProcessCollision(){
+    int y=snake->GetHead().y;
+    int x=snake->GetHead().x;
+    switch(mapManager->data[y][x]){
+          case '5':
+            itemManager->DeleteCollisionData(y, x);
+            snake->Grow();
+            break;
+          case '6':
+            itemManager->DeleteCollisionData(y, x);
+            snake->Shrink();
+            break;
+          case '7':
+            break;
+    }
+}
+
+
+
 void GameScene::Update(float eTime)
 {
 	// stage->Update(eTime);
-	snake->Update(eTime);
-	// itemManager->Update(eTime);
-	// wallManager->Update(eTime);
+    
+    if(snake->isDied){
+        ChangeScene(new GameOverScene());
+    }
+    
+    player->SetLengthScore(snake->entire.size());
+    
+    
+
+    snake->Update(eTime);
+	itemManager->Update(eTime);
+	gateManager->Update(eTime);
+
+    if(snake->IsCollision()){
+        ProcessCollision();
+    }
+    
     
     
 	// itemManager->GetItem(*snake);
@@ -75,35 +116,37 @@ void GameScene::Update(float eTime)
 }
 
 void GameScene::Render(){
-     char (*data)[WIDTH]=(char(*)[WIDTH])mapManager->GetData();
+    
+    mvaddch(0, maxwidth / 5 * 4 + 4, (char)(player->lengthScore+48));
+    char (*data)[WIDTH]=(char(*)[WIDTH])mapManager->GetData();
     for(int i = 0; i < HEIGHT; i++){
       for(int j = 0; j < WIDTH; j++){
         switch(data[i][j]){
-          case 48:
+          case '0':
             mvaddch(i, j, ' ');
             break;
-          case 49:
+          case '1':
             mvaddch(i, j, '-');
             break;
-          case 50:
+          case '2':
             mvaddch(i, j, 'X');
             break;
-          case 51:
+          case '3':
             mvaddch(i, j, 'H');
             break;
-          case 52:
+          case '4':
             mvaddch(i, j, 'B');
             break;
-          case 53:
+          case '5':
             mvaddch(i, j, 'G');
             break;
-          case 54:
+          case '6':
             mvaddch(i, j, 'P');
             break;
-          case 55:
+          case '7':
             mvaddch(i, j, '?');
             break;
-          case 57:
+          case '8':
             mvaddch(i, j, ' ');
           }
      }

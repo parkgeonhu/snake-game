@@ -38,15 +38,19 @@ void Snake::initBody()
 	}
 }
 
+
+void Snake::SetDirection(char ch){
+	direction=ch;
+}
+
 void Snake::Update(float eTime){
 	//  ths snake's size below 3. Chanege GameScene to GameOverScene
 	int32 KeyPressed;
 	if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= maxwidth / 4 * 3 - 1) || (entire[0].y >= maxheight - 1 || entire[0].y <= 0))
 	{
-		ChangeScene(new GameOverScene());
+		isDied=true;
 	}
-	if (KeyPressed >= 3)
-		KeyPressed = getch();
+	KeyPressed = getch();
 	switch (KeyPressed)
 	{
 	case KEY_LEFT:
@@ -55,7 +59,7 @@ void Snake::Update(float eTime){
 			direction = 'l';
 		}
 		else
-			ChangeScene(new GameOverScene());
+			isDied=true;
 		break;
 	case KEY_RIGHT:
 		if (direction != 'l')
@@ -63,7 +67,7 @@ void Snake::Update(float eTime){
 			direction = 'r';
 		}
 		else
-			ChangeScene(new GameOverScene());
+			isDied=true;
 		break;
 	case KEY_UP:
 		if (direction != 'd')
@@ -71,7 +75,7 @@ void Snake::Update(float eTime){
 			direction = 'u';
 		}
 		else
-			ChangeScene(new GameOverScene());
+			isDied=true;
 		break;
 	case KEY_DOWN:
 		if (direction != 'u')
@@ -79,7 +83,7 @@ void Snake::Update(float eTime){
 			direction = 'd';
 		}
 		else
-			ChangeScene(new GameOverScene());
+			isDied=true;
 		break;
 	case KEY_BACKSPACE:
 		direction = 'q'; // key to quit the game
@@ -88,31 +92,45 @@ void Snake::Update(float eTime){
 
 	// the snake moves and we add an extra character at the beginning of the vector
 	// add a head and initialise new coordinates for CharPosition according to the direction input
-	if (direction == 'l')
-	{
-		entire.insert(entire.begin(), CharPosition(entire[0].x - 1, entire[0].y));
-	}
-	else if (direction == 'r')
-	{
-		entire.insert(entire.begin(), CharPosition(entire[0].x + 1, entire[0].y));
-	}
-	else if (direction == 'u')
-	{
-		entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y - 1));
-	}
-	else if (direction == 'd')
-	{
-		entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y + 1));
-	}
-    
-    //isGrow는 false일 때 entire 벡터에 갱신된 head가 추가되면 맨 뒤에 있는 entire 원소 제거
-    if(isGrow==false){
-        CutTail();
+    if(isDied==false){
+	    if (direction == 'l')
+	    {
+	    	entire.insert(entire.begin(), CharPosition(entire[0].x - 1, entire[0].y));
+	    }
+	    else if (direction == 'r')
+	    {
+	    	entire.insert(entire.begin(), CharPosition(entire[0].x + 1, entire[0].y));
+	    }
+	    else if (direction == 'u')
+	    {
+	    	entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y - 1));
+	    }
+	    else if (direction == 'd')
+	    {
+	    	entire.insert(entire.begin(), CharPosition(entire[0].x, entire[0].y + 1));
+	    }
+        //isGrow는 false일 때 entire 벡터에 갱신된 head가 추가되면 맨 뒤에 있는 entire 원소 제거
+        if(isGrow==false){
+            CutTail();
+        }
+        else{
+            isGrow=false;
+        }
+        
+        PushData();
     }
 
-	
-    PushData();
 }
+
+bool Snake::IsCollision(){
+    CharPosition head=GetHead();
+    if(mapManager->data[head.y][head.x]!=0){
+        return true;
+    }
+    return false;
+}
+
+
 
 void Snake::CutTail(){
     mapManager->PatchData(entire[entire.size() - 1].y, entire[entire.size() - 1].x,'0');
@@ -126,6 +144,10 @@ void Snake::Grow(){
 void Snake::Shrink(){
     isShrink=true;
     CutTail();
+}
+
+CharPosition Snake::GetHead(){
+    return entire[0];
 }
 
 

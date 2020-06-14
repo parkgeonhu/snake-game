@@ -1,33 +1,29 @@
 #pragma once
 #include "IObject.h"
 #include "CharPosition.h"
-#include "Snake.h"
-#include "Item.h"
 #include <vector>
 #include <ncurses.h>
 #include <cstdlib>
 #include <string>
 #include <ctime>
 
-class ItemManager : public IObject
+class GateManager : public IObject
 {
 public:
-    int maxheight, maxwidth;
     
-    std::vector<Item> data;
-    
+    std::vector<CharPosition> data;
+    bool isCreated=false;
+    bool isEntering=false;
     float lastDropTime=0;
     
-    // Fruit fruit;
-    // Poison poison;
+    GateManager();
+    ~GateManager();
 
-    ItemManager();
-    ~ItemManager();
-
-
+    CharPosition getRandPosition();
     void Render();
+    CharPosition getNextGate();
     void Update(float eTime);
-    void PositionItem(std::string check, float eTime);
+    void PositionGate();
     void DeleteCollisionData(int y, int x);
     
     void PushData();

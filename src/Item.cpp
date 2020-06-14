@@ -1,11 +1,30 @@
 #include "Item.h"
 #include "CharPosition.h"
+#include "myFunction.h"
+#include "MapManager.h"
 
-extern int currentWidth;
-extern int currentHeight;
+
+
+extern MapManager * mapManager;
+
+CharPosition Item::getRandPosition(){
+    CharPosition temp;
+    while(1){
+        int x=rand() % (WIDTH);
+        int y=rand() % (HEIGHT);
+        if(mapManager->data[y][x]=='0'){
+            temp.x=x;
+            temp.y=y;
+            break;
+        }
+    }
+    return temp;
+}
 
 Item::Item(std::string t,float eTime) : type(t), dropTime(eTime) {
-    position=new CharPosition(rand() % (currentWidth / 4 * 3 - 1) + 1, rand() % (currentHeight - 1) + 1);
+    CharPosition temp=getRandPosition();
+    position.x=temp.x;
+    position.y=temp.y;
 }
 
 Item::~Item(){
@@ -15,10 +34,10 @@ void Item::Update(float eTime){
 }
 
 void Item::Render() {
-    move(position->y,position->x);
+    // move(position->y,position->x);
     
-    if(type=="fruit")
-        addch('$');
-    else if(type=="poison")
-        addch('X');
+    // if(type=="fruit")
+    //     addch('$');
+    // else if(type=="poison")
+    //     addch('X');
 }
