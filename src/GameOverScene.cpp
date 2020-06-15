@@ -7,13 +7,11 @@
 #include <ctime>
 #include <iostream>
 
-Stage *stage;
+extern Stage *stage;
 
-GameOverScene::GameOverScene()
-{
-    stage = new Stage();
-    stage->setNowStage(1);
-};
+GameOverScene::GameOverScene(){
+}
+
 GameOverScene::~GameOverScene() {}
 
 void GameOverScene::Update(float eTime)
