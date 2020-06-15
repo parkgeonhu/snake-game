@@ -39,7 +39,7 @@ GameScene::GameScene()
     
     
     
-    // format = new Format();
+    format = new Format();
 
 
 	InitGameWindow();
@@ -74,54 +74,45 @@ void GameScene::ProcessCollision(){
     
     char temp=mapManager->data[y][x];
     
-    mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
+    // mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
     
     if(temp=='1'){
         snake->isDied=true;
     }
     else if(temp=='5'){
         itemManager->DeleteCollisionData(y, x);
+        player->growScore+=1;
         snake->Grow();        
     }
     else if(temp=='6'){
         itemManager->DeleteCollisionData(y, x);
+        player->poisonScore+=1;
         snake->Shrink();
     }
     else if(temp=='7'){
         CharPosition nextGate=gateManager->GetNextGate();
+        player->gateScore+=1;
         gateManager->isUsed=true;
         snake->SetHeadPos(nextGate.y, nextGate.x);
     }    
-    
-    // switch(){
-    //     case '1':
-    //         snake->isDied=true;
-    //         break;
-    //     case '5':{
+  
+}
 
-    //         break;            
-    //     }
-    //     case '6':
 
-    //         break;
-    //     case '7' : {
-
-    //         break;
-    //     }
-    //     default:
-    //         mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
-    //         break;
-    // }
+bool isClear(){
+    //여기에서 스테이지 클리어 조건 걸어주고
+    return false;
 }
 
 
 
-void GameScene::Update(float eTime)
-{
-	// stage->Update(eTime);
-
+void GameScene::Update(float eTime){
+    //여기에서 chagneScene을 걸어준다.
+    if(isClear()){
+        ChangeScene(new GameScene());
+        stage->nowStage++;
+    }
     
-
     
     player->SetLengthScore(snake->entire.size());
     
@@ -137,14 +128,7 @@ void GameScene::Update(float eTime)
 
 	itemManager->Update(eTime);
 	gateManager->Update(eTime);
-
-
     
-    
-    
-	// itemManager->GetItem(*snake);
-	// snake->EatItem(itemManager->getEatFruit(), itemManager->getEatPoison());
-
 	//* float eTime test code *//
 	// move((maxheight-2)/2,(maxwidth-5)/2);
 	// printw("%f",eTime);
@@ -152,9 +136,8 @@ void GameScene::Update(float eTime)
 }
 
 void GameScene::Render(){
+    format->Render();
     
-    mvaddch(0, maxwidth / 5 * 4 + 4, (char)(player->lengthScore+48));
-    // char (*data)[WIDTH]=(char(*)[WIDTH])mapManager->GetData();
     for(int i = 0; i < HEIGHT; i++){
       for(int j = 0; j < WIDTH; j++){
         switch(mapManager->data[i][j]){
@@ -187,6 +170,9 @@ void GameScene::Render(){
           }
      }
    }
+    
+    
+    
     refresh();
 }
 
