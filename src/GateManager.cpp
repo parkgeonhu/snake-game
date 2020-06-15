@@ -6,6 +6,8 @@
 #include "GameScene.h"
 
 extern MapManager * mapManager;
+extern Snake * snake;
+
 
 
 CharPosition GateManager::getRandPosition(){
@@ -34,9 +36,93 @@ void GateManager::Render(){
 
 }
 
-// CharPosition GateManager::getNextGate(){
+CharPosition GateManager::GetNextGate(){
+    int target;
     
-// }
+    for(int i=0;i<data.size();i++){
+        if(data[i].x==snake->GetHead().x && data[i].y==snake->GetHead().y){
+            target=i;
+        }
+    }
+    
+    if(target==0){
+        target=1;
+    }else{
+        target=0;
+    }
+    
+    int tempPosX=data[target].x;
+    int tempPosY=data[target].y;
+
+    
+
+    bool possibleLeft=false;
+    bool possibleRight=false;
+    bool possibleUp=false;
+    bool possibleDown=false;
+    
+    char direction=snake->direction;
+
+
+    if(mapManager->data[tempPosY+1][tempPosX]==0){
+        possibleDown=true;
+    }
+    if(mapManager->data[tempPosY][tempPosX+1]==0){
+        possibleRight=true;
+    }
+    if(mapManager->data[tempPosY-1][tempPosX]==0){
+        possibleUp=true;
+    }    
+    if(mapManager->data[tempPosY][tempPosX-1]==0){
+        possibleLeft=true;
+    }
+    
+    //진입방향과 일치하는 경우
+    if(possibleLeft && direction=='l'){
+        tempPosX-=1;
+    }
+    else if(possibleRight && direction=='r'){
+        tempPosX+=1;
+    }
+    else if(possibleUp && direction=='u'){
+        tempPosY-=1;
+    }
+    else if(possibleDown && direction=='d'){
+        tempPosY+=1;
+    }
+    
+    
+    //snake의 direction을 바꿔야하는 경우
+    else if(direction=='u' || direction=='d'){
+        if(possibleLeft){
+            tempPosX-=1;
+            snake->SetDirection('l');
+        }
+        else{
+            tempPosX+=1;
+            snake->SetDirection('r');
+        }
+    }
+
+    else if(direction=='l' || direction=='r'){
+        if(possibleDown){
+            tempPosY+=1;
+            snake->SetDirection('d');
+        }
+        else{
+            tempPosY-=1;
+            snake->SetDirection('u');
+        }
+    }
+    
+    CharPosition nextPos;
+    nextPos.x=tempPosX;
+    nextPos.y=tempPosY;
+    
+    
+    return nextPos;
+    
+}
 
 
 

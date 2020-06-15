@@ -46,10 +46,10 @@ void Snake::SetDirection(char ch){
 void Snake::Update(float eTime){
 	//  ths snake's size below 3. Chanege GameScene to GameOverScene
 	int32 KeyPressed;
-	if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= maxwidth / 4 * 3 - 1) || (entire[0].y >= maxheight - 1 || entire[0].y <= 0))
-	{
-		isDied=true;
-	}
+	// if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= maxwidth / 4 * 3 - 1) || (entire[0].y >= maxheight - 1 || entire[0].y <= 0))
+	// {
+	// 	isDied=true;
+	// }
 	KeyPressed = getch();
 	switch (KeyPressed)
 	{
@@ -128,6 +128,12 @@ bool Snake::IsCollision(){
         return true;
     }
     return false;
+}
+
+
+void Snake::SetHeadPos(int y, int x){
+    entire[0].x=x;
+    entire[0].y=y;
 }
 
 

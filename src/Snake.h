@@ -36,6 +36,7 @@ public:
     void Shrink();
     
     CharPosition GetHead();
+    void SetHeadPos(int y,int x);
     
     void CutTail();
     

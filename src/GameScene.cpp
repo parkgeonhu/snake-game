@@ -6,6 +6,7 @@
 #include "IObject.h"
 #include "Player.h"
 #include "MapManager.h"
+#include "CharPosition.h"
 
 #include <unistd.h>
 #include <vector>
@@ -17,6 +18,7 @@ using int32 = int;
 
 MapManager * mapManager;
 Player * player;
+Snake *snake;
 
 
 GameScene::GameScene()
@@ -78,6 +80,8 @@ void GameScene::ProcessCollision(){
             snake->Shrink();
             break;
           case '7':
+            CharPosition nextGate=gateManager->GetNextGate();
+            snake->SetHeadPos(nextGate.y, nextGate.x);
             break;
     }
 }

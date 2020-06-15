@@ -27,7 +27,7 @@ public:
 
 	GameScene();
 	~GameScene();
-	Snake *snake;
+	
 	ItemManager *itemManager;
 	GateManager *gateManager;
     

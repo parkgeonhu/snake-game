@@ -20,8 +20,9 @@ public:
     ~GateManager();
 
     CharPosition getRandPosition();
+
     void Render();
-    CharPosition getNextGate();
+    CharPosition GetNextGate();
     void Update(float eTime);
     void PositionGate();
     void DeleteCollisionData(int y, int x);
