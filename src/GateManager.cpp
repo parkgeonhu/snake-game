@@ -2,7 +2,6 @@
 #include <ctime>
 #include <string>
 #include "Snake.h"
-#include "Gate.h"
 #include "GateManager.h"
 #include "GameScene.h"
 
