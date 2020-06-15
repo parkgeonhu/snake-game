@@ -89,6 +89,7 @@ void GameScene::ProcessCollision(){
     }
     else if(temp=='7'){
         CharPosition nextGate=gateManager->GetNextGate();
+        gateManager->isUsed=true;
         snake->SetHeadPos(nextGate.y, nextGate.x);
     }    
     

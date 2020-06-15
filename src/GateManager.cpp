@@ -156,18 +156,17 @@ void GateManager::Update(float eTime){
     if(isRemove==true){
         for (int i=data.size()-1;i>=0;i--){
             mapManager->PatchData(data[i].y, data[i].x, '1');
-            
-        }
-        isCreated=false;
-    }
-    
-    //Gate drop
-    if(eTime-lastDropTime>DROP_GATE_INTERVAL && isUsed==true){
-        for (int i=data.size()-1;i>=0;i--){
             data.pop_back();
         }
-        
-        if(isCreated==false){
+        isCreated=false;
+        isRemove=false;
+    }
+    
+    PushData();
+    
+    //Gate drop
+    if(eTime-lastDropTime>DROP_GATE_INTERVAL){
+        if(isCreated==false && isUsed==true){
             PositionGate();
             lastDropTime=eTime;
             isCreated=true;
@@ -192,7 +191,7 @@ void GateManager::Update(float eTime){
     //     }
     // }
     
-    PushData();
+    
     
 }
 
@@ -208,5 +207,5 @@ void GateManager::PositionGate(){
 void GateManager::PushData(){
     for (int32 i = 0; i < data.size(); i++){
         mapManager->PatchData(data[i].y, data[i].x, '7');
-	}
+    }
 }
