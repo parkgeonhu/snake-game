@@ -70,20 +70,48 @@ void GameScene::InitGameWindow()
 void GameScene::ProcessCollision(){
     int y=snake->GetHead().y;
     int x=snake->GetHead().x;
-    switch(mapManager->data[y][x]){
-          case '5':
-            itemManager->DeleteCollisionData(y, x);
-            snake->Grow();
-            break;
-          case '6':
-            itemManager->DeleteCollisionData(y, x);
-            snake->Shrink();
-            break;
-          case '7':
-            CharPosition nextGate=gateManager->GetNextGate();
-            snake->SetHeadPos(nextGate.y, nextGate.x);
-            break;
+    
+    
+    char temp=mapManager->data[y][x];
+    
+    mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
+    
+    if(temp=='1'){
+        snake->isDied=true;
     }
+    else if(temp=='5'){
+        itemManager->DeleteCollisionData(y, x);
+        snake->Grow();        
+    }
+    else if(temp=='6'){
+        itemManager->DeleteCollisionData(y, x);
+        snake->Shrink();
+    }
+    else if(temp=='7'){
+        CharPosition nextGate=gateManager->GetNextGate();
+        gateManager->isUsed=true;
+        snake->SetHeadPos(nextGate.y, nextGate.x);
+    }    
+    
+    // switch(){
+    //     case '1':
+    //         snake->isDied=true;
+    //         break;
+    //     case '5':{
+
+    //         break;            
+    //     }
+    //     case '6':
+
+    //         break;
+    //     case '7' : {
+
+    //         break;
+    //     }
+    //     default:
+    //         mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
+    //         break;
+    // }
 }
 
 
@@ -91,22 +119,26 @@ void GameScene::ProcessCollision(){
 void GameScene::Update(float eTime)
 {
 	// stage->Update(eTime);
+
     
-    if(snake->isDied){
-        ChangeScene(new GameOverScene());
-    }
+
     
     player->SetLengthScore(snake->entire.size());
     
-    
-
     snake->Update(eTime);
-	itemManager->Update(eTime);
-	gateManager->Update(eTime);
-
     if(snake->IsCollision()){
         ProcessCollision();
     }
+    if(snake->isDied){
+        ChangeScene(new GameOverScene());
+    }
+    snake->PushData();
+    
+
+	itemManager->Update(eTime);
+	gateManager->Update(eTime);
+
+
     
     
     
@@ -116,16 +148,16 @@ void GameScene::Update(float eTime)
 	//* float eTime test code *//
 	// move((maxheight-2)/2,(maxwidth-5)/2);
 	// printw("%f",eTime);
-	usleep(100000);
+	usleep(150000);
 }
 
 void GameScene::Render(){
     
     mvaddch(0, maxwidth / 5 * 4 + 4, (char)(player->lengthScore+48));
-    char (*data)[WIDTH]=(char(*)[WIDTH])mapManager->GetData();
+    // char (*data)[WIDTH]=(char(*)[WIDTH])mapManager->GetData();
     for(int i = 0; i < HEIGHT; i++){
       for(int j = 0; j < WIDTH; j++){
-        switch(data[i][j]){
+        switch(mapManager->data[i][j]){
           case '0':
             mvaddch(i, j, ' ');
             break;

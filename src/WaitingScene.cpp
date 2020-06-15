@@ -4,7 +4,7 @@
 #include "myFunction.h"
 
 
-extern Stage *stage;
+Stage *stage;
 
 extern int currentWidth;
 extern int currentHeight;
@@ -13,8 +13,6 @@ WaitingScene::WaitingScene()
 {
     stage = new Stage();
     
-    stage->setNowStage(1);
-
     
 }
 
@@ -25,11 +23,12 @@ WaitingScene::~WaitingScene()
 void WaitingScene::Update(float eTime)
 {
     char answer = IsUserReady();
-    if (answer == 'y')
-        ChangeScene(new GameScene());
-
-    else if (answer == 'n')
+    stage->setNowStage((int)answer-48);
+    
+    if (answer == 'n')
         exit(0);
+    else
+        ChangeScene(new GameScene());
 }
 
 void WaitingScene::Render()
@@ -68,6 +67,6 @@ int WaitingScene::UserInput()
 int WaitingScene::IsUserReady()
 {
     ClearCentre(3, 2.5);
-    printw("Welcome to the Snake Game. Are you ready? (y/n)");
+    printw("Welcome to the Snake Game. Select Stage (1/2/3)");
     return UserInput();
 }

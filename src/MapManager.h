@@ -1,6 +1,5 @@
 #pragma once
 #include "IObject.h"
-#include "WallManager.h"
 #include "CharPosition.h"
 #include "myFunction.h"
 #include "Snake.h"
@@ -14,7 +13,6 @@
 class MapManager : public IObject
 {
 public:
-    WallManager *wallManager;
 
     char data[HEIGHT][WIDTH];
 

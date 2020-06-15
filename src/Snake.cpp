@@ -50,7 +50,8 @@ void Snake::Update(float eTime){
 	// {
 	// 	isDied=true;
 	// }
-	KeyPressed = getch();
+
+    KeyPressed = getch();
 	switch (KeyPressed)
 	{
 	case KEY_LEFT:
@@ -116,15 +117,13 @@ void Snake::Update(float eTime){
         else{
             isGrow=false;
         }
-        
-        PushData();
     }
 
 }
 
 bool Snake::IsCollision(){
     CharPosition head=GetHead();
-    if(mapManager->data[head.y][head.x]!=0){
+    if(mapManager->data[head.y][head.x]!='0'){
         return true;
     }
     return false;
@@ -154,6 +153,10 @@ void Snake::Shrink(){
 
 CharPosition Snake::GetHead(){
     return entire[0];
+}
+
+CharPosition Snake::GetTail(){
+    return entire[entire.size()-1];
 }
 
 

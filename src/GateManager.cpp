@@ -8,7 +8,7 @@
 extern MapManager * mapManager;
 extern Snake * snake;
 
-
+CharPosition nextPos;
 
 CharPosition GateManager::getRandPosition(){
     CharPosition temp;
@@ -37,7 +37,7 @@ void GateManager::Render(){
 }
 
 CharPosition GateManager::GetNextGate(){
-    int target;
+    int target=9;
     
     for(int i=0;i<data.size();i++){
         if(data[i].x==snake->GetHead().x && data[i].y==snake->GetHead().y){
@@ -54,8 +54,6 @@ CharPosition GateManager::GetNextGate(){
     int tempPosX=data[target].x;
     int tempPosY=data[target].y;
 
-    
-
     bool possibleLeft=false;
     bool possibleRight=false;
     bool possibleUp=false;
@@ -64,16 +62,16 @@ CharPosition GateManager::GetNextGate(){
     char direction=snake->direction;
 
 
-    if(mapManager->data[tempPosY+1][tempPosX]==0){
+    if(mapManager->data[tempPosY+1][tempPosX]=='0'){
         possibleDown=true;
     }
-    if(mapManager->data[tempPosY][tempPosX+1]==0){
+    if(mapManager->data[tempPosY][tempPosX+1]=='0'){
         possibleRight=true;
     }
-    if(mapManager->data[tempPosY-1][tempPosX]==0){
+    if(mapManager->data[tempPosY-1][tempPosX]=='0'){
         possibleUp=true;
     }    
-    if(mapManager->data[tempPosY][tempPosX-1]==0){
+    if(mapManager->data[tempPosY][tempPosX-1]=='0'){
         possibleLeft=true;
     }
     
@@ -98,9 +96,17 @@ CharPosition GateManager::GetNextGate(){
             tempPosX-=1;
             snake->SetDirection('l');
         }
-        else{
+        else if (possibleRight){
             tempPosX+=1;
             snake->SetDirection('r');
+        }
+        else if(possibleUp){
+            tempPosY-=1;
+            snake->SetDirection('u');
+        }
+        else if(possibleDown){
+            tempPosY+=1;
+            snake->SetDirection('d');
         }
     }
 
@@ -109,13 +115,21 @@ CharPosition GateManager::GetNextGate(){
             tempPosY+=1;
             snake->SetDirection('d');
         }
-        else{
+        else if(possibleUp){
             tempPosY-=1;
             snake->SetDirection('u');
         }
+        else if(possibleLeft){
+            tempPosX-=1;
+            snake->SetDirection('l');
+        }
+        else if(possibleRight){
+            tempPosX+=1;
+            snake->SetDirection('r');
+        }
     }
     
-    CharPosition nextPos;
+    
     nextPos.x=tempPosX;
     nextPos.y=tempPosY;
     
@@ -132,15 +146,32 @@ void GateManager::Update(float eTime){
     int * temp=new int[data.size()];
     vector<CharPosition>::iterator iter;
     
+    //꼬리가 다음 게이트 지시 위치로 갔는가
+    CharPosition tail=snake->GetTail();
+    if(nextPos.x==tail.x && nextPos.y==tail.y){
+        isRemove=true;
+    }
     
-    //Gate drop
-    if(eTime-lastDropTime>DROP_GATE_INTERVAL && isEntering==false){
+    //게이트를 삭제해야한다면 바로 map에 반영하기
+    if(isRemove==true){
         for (int i=data.size()-1;i>=0;i--){
             mapManager->PatchData(data[i].y, data[i].x, '1');
-            data.pop_back();            
+            data.pop_back();
         }
-        PositionGate();
-        lastDropTime=eTime;
+        isCreated=false;
+        isRemove=false;
+    }
+    
+    PushData();
+    
+    //Gate drop
+    if(eTime-lastDropTime>DROP_GATE_INTERVAL){
+        if(isCreated==false && isUsed==true){
+            PositionGate();
+            lastDropTime=eTime;
+            isCreated=true;
+            isUsed=false;
+        }
     }
     
     // for(int i=0;i<data.size();i++){
@@ -160,7 +191,7 @@ void GateManager::Update(float eTime){
     //     }
     // }
     
-    PushData();
+    
     
 }
 
@@ -170,10 +201,11 @@ void GateManager::PositionGate(){
     PushData();
     temp=getRandPosition();
     data.push_back(temp);
+    PushData();
 }
 
 void GateManager::PushData(){
     for (int32 i = 0; i < data.size(); i++){
         mapManager->PatchData(data[i].y, data[i].x, '7');
-	}
+    }
 }
