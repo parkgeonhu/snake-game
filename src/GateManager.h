@@ -12,8 +12,9 @@ class GateManager : public IObject
 public:
     
     std::vector<CharPosition> data;
+    bool isUsed=true;
+    bool isRemove=false;
     bool isCreated=false;
-    bool isEntering=false;
     float lastDropTime=0;
     
     GateManager();
