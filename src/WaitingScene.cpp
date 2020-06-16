@@ -23,7 +23,7 @@ WaitingScene::~WaitingScene()
 void WaitingScene::Update(float eTime)
 {
     char answer = IsUserReady();
-    stage->setNowStage((int)answer-48);
+    stage->setNowStage((int)answer-49);
     
     if (answer == 'n')
         exit(0);

@@ -14,7 +14,7 @@ void MapManager::Load(){
     
     
     std::ifstream readFile;
-    string src = "map/map"+std::to_string(stage->getNowStage()) + ".txt";
+    string src = "map/map"+std::to_string(stage->getNowStage()+1) + ".txt";
     // string src = "map/map1.txt";
 
     readFile.open(src);
