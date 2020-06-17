@@ -96,7 +96,10 @@ void GameScene::ProcessCollision()
 
 bool isClear()
 {
-  //여기에서 스테이지 클리어 조건 걸어주고
+  if (player->lengthScore >= stage->mission[stage->getNowStage()][0] && player->growScore >= stage->mission[stage->getNowStage()][1] && player->poisonScore >= stage->mission[stage->getNowStage()][2] && player->gateScore == stage->mission[stage->getNowStage()][3])
+  {
+    return true;
+  }
   return false;
 }
 
@@ -105,8 +108,8 @@ void GameScene::Update(float eTime)
   //여기에서 chagneScene을 걸어준다.
   if (isClear())
   {
-    ChangeScene(new GameScene());
     stage->nowStage++;
+    ChangeScene(new GameScene());
   }
 
   player->SetLengthScore(snake->entire.size());
