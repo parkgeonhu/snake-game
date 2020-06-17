@@ -6,7 +6,7 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 
 ![](/img/snake-game.png)
 
-다음은 **snake-game의 구조**이다.
+다음은 **snake-game에 포함된 구조들**이다.
 
 - Snake Body : Head는 플레이되는 본체, 방향키를 사용해 움직일 수 있다.
 - Growth Item : 획득 시, Body의 길이가 1 증가한다.
@@ -21,14 +21,37 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 
 <br>
 
-## **1단계** 
+## 목차
+
+|     내용      |
+| :-----------: |
+|   구현 단계   |
+| 프로젝트 구조 |
+|   구현 방법   |
+|   역할 분담   |
+
+
+
+## 구현 단계
+
+snake-game은 다음의 기능들을 단계별로 구현한다. 
+
+1단계에서는 Map을 출력하는 부분, 2단계는 
+
+
+
+<hr>
+
+
+
+### **1단계** 
 
 - NCurses Library 함수들을 사용해 Snake Map을 Game 화면에 출력.
 - Wall은 **흰색 네모**, Immune Wall은 **회색 네모**로 윈도우에 출력.
 
 <br>
 
-## 2단계
+### 2단계
 
 - Map 위에 Snake를 표시하고, 화살표를 입력받아 Snake가 0.5초당 1의 거리가 움직이도록 프로그램을 완성한다.
 - Snake의 출력은 Head는 **주황색 네모**, Body는 **노란색 네모**로 출력한다. 
@@ -40,7 +63,7 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 
 <br>
 
-## 3단계
+### 3단계
 
 - 2단계 프로그램에서, Map 위에 Growth Item과 Poison Item을 출현하도록 수정.
 - Growth Item은 **초록색 네모**, Poison Item은 **빨간색 네모**로 출력한다.
@@ -57,7 +80,7 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 
 <br>
 
-## 4단계
+### 4단계
 
 - 3단계 프로그램에서, Map에 존재하는 Wall의 임의의 위치에 한 쌍의 Gate가 출현할 수 있도록 변경하고, 각 Gate에 Snake가 통과할 수 있도록 수정한다.
 
@@ -118,7 +141,7 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 
 <br>
 
-## 5단계
+### 5단계
 
 - 프로그램 우측에 게임 점수를 표시하는  Score Board를 구성한다.
 - Score Board 아래에 Mission을 구성한다.
@@ -160,7 +183,28 @@ C++ 프로그래밍 언어로 ncurses 라이브러리를 사용하여 Snake Game
 
 ```
 
+snake-game의 전체적인 구조는 위 tree에서 보여주는 것과 같으며 다음의 파트들로 나뉜다.
+
+
+
+**main** :  Scene의 Update와 Render를 통해 프로그램을 시작하는 부분.
+
+**Function** : 기능들이 들어있는 곳. Render, Update, ChangeScene 메서드가 이 부분에 속한다.
+
+**Scene** : 게임의 전체적인 Scene들을 나타내는 부분. 추상클래스 IScene를 상속받는, 초기화면인 WaitingScene, 게임이 진행하는 GameScene, 게임 오버되는 GameOverScene이 있다.
+
+**Object** : 게임 안에 뿌려지는 Item(Poison, Fruit), Wall(Wall, Gate)를 다루는 부분. 추상 클래스 IObject를 상속받고,  각각의 관리자인 Manager 클래스들을 통해 맵에 표시된다.
+
+**Map** : GameScene에서 snake가 움직이는 Map을 Map 폴더 안에 있는 txt파일을 읽어온다.
+
+**Stage** : 1~4단계가 존재. 각각의 stage에 맞는 Map을 호출한다.
+
+**Format** : Score와 Mission이 출력되는 부분.
+
+
+
 ## 구현 방법
+
 프로그램의 시작은 main.cpp다. 이곳에서 Scene의 Update와 Render가 이뤄진다.
 ##### myFunction.h
 ```c++
@@ -196,6 +240,7 @@ int32 main ()
 ```
 myFunction.h 에서 Iscene * nowScene에는 현재 사용자에게 보여주어야 할 Scene을 할당해준다. 예를 들어 대기화면을 보여줘야하면 초기화 시, nowScene=new WaitingScene() 해준다.<br>
 myFunction.h 의 Update와 Render에는  nowScene의 Update와 Render를 해준다. 메인 게임의 로직은 GameScene에 구현할 예정이다.
+
 ##### GameScene.cpp
 ```c++
 GameScene::GameScene()
