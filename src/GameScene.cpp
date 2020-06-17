@@ -69,7 +69,7 @@ void GameScene::ProcessCollision()
 
   // mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
 
-  if (temp == '1')
+  if (temp == '1' || snake->entire.size() <= 4)
   {
     snake->isDied = true;
   }
@@ -125,10 +125,9 @@ void GameScene::Update(float eTime)
     ChangeScene(new GameOverScene());
   }
   snake->PushData();
-
+  format->Update(eTime);
   itemManager->Update(eTime);
   gateManager->Update(eTime);
-
   //* float eTime test code *//
   // move((maxheight-2)/2,(maxwidth-5)/2);
   // printw("%f",eTime);

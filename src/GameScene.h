@@ -14,7 +14,6 @@
 
 #include "MapManager.h"
 
-
 using int32 = int;
 
 class GameScene : public IScene
@@ -27,10 +26,10 @@ public:
 
 	GameScene();
 	~GameScene();
-	
+
 	ItemManager *itemManager;
 	GateManager *gateManager;
-    
+
 	Format *format;
 
 	bool isChangeScene;
@@ -48,9 +47,8 @@ public:
 
 	void Update(float eTime);
 	void Render();
-    void ProcessCollision();
+	void ProcessCollision();
 
-	// void UpdateRunning(float eTime);
 	void UpdateGameover(float eTime);
 	// void UpdateStop(float eTime);
 	// void UpdateClear(float eTime);
