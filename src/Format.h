@@ -64,6 +64,7 @@ public:
         };
 
     Format();
+
     ~Format();
     void Update(float eTime);
     void Render();
