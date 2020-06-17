@@ -26,7 +26,6 @@ GameScene::GameScene()
 
   player = new Player();
 
-  //mapManager를 먼저 생성시켜줘야함
   mapManager = new MapManager();
   mapManager->Load();
 
