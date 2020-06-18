@@ -8,7 +8,7 @@
 class Format : public IObject
 {
 public:
-    int maxheight, maxwidth;
+    int maxheight, maxwidth, digitTime;
     const char *score[10][5] =
         {
             {"00000",
@@ -68,6 +68,8 @@ public:
     void Update(float eTime);
     void Render();
 
+    char Complete(int present, int goal);
+    void DrawTime(float eTime);
     void DrawScore();
     void DrawMission();
 };

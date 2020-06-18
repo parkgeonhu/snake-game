@@ -5,10 +5,12 @@
 #include <string>
 #include "Player.h"
 #include "Stage.h"
+#include "Snake.h"
 #include "Format.h"
 
 extern Player *player;
 extern Stage *stage;
+extern Snake *snake;
 
 //char edgechar = (char)219;
 // for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
@@ -43,6 +45,7 @@ Format::~Format()
 
 void Format::Update(float eTime)
 {
+    DrawTime(eTime);
 }
 
 void Format::Render()
@@ -55,12 +58,12 @@ void Format::Render()
 void Format::DrawScore()
 {
 
-    move(0, maxwidth / 5 * 4 + 4);
+    move(7, maxwidth / 5 * 4 + 4);
     printw("< S C O R E >");
 
     for (int i = 0; i < 26; i++)
     {
-        move(1, maxwidth / 5 * 4 - 3 + i);
+        move(8, maxwidth / 5 * 4 - 3 + i);
         addch('-');
     }
 
@@ -76,7 +79,7 @@ void Format::DrawScore()
 
         for (int j = 0; j < 5; j++)
         {
-            move(4 + j, maxwidth / 5 * 4 - 2 + 4 + i * 6);
+            move(11 + j, maxwidth / 5 * 4 - 2 + 4 + i * 6);
             printw("%s", score[digitScore][j]);
         }
         digit /= 10;
@@ -84,9 +87,56 @@ void Format::DrawScore()
 
     for (int i = 0; i < 26; i++)
     {
-        move(11, maxwidth / 5 * 4 - 3 + i);
+        move(18, maxwidth / 5 * 4 - 3 + i);
         addch('-');
     }
+}
+
+void Format::DrawTime(float eTime)
+{
+    int digit = 10;
+    digitTime = (int)(60 - eTime);
+    if (digitTime <= 0)
+        snake->isDied = true;
+
+    for (int j = 0; j < 5; j++)
+    {
+        move(1 + j, maxwidth / 5 * 4 - 2 + 2);
+        printw("%s", score[0][j]);
+    }
+
+    for (int i = 0; i < 26; i++)
+    {
+        move(6, maxwidth / 5 * 4 - 3 + i);
+        addch('-');
+        move(0, maxwidth / 5 * 4 - 3 + i);
+        addch('-');
+    }
+
+    move(2, maxwidth / 5 * 4 - 2 + 8);
+    addch(char(219));
+
+    move(4, maxwidth / 5 * 4 - 2 + 8);
+    addch(char(219));
+
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            move(1 + j, maxwidth / 5 * 4 - 2 + 4 + (i + 1) * 6);
+            printw("%s", score[digitTime / digit][j]);
+        }
+        digitTime = digitTime % digit;
+        digit /= 10;
+    }
+}
+
+char Format::Complete(int present, int goal)
+{
+    if (present >= goal)
+        return 'V';
+    else
+        return ' ';
 }
 
 void Format::DrawMission()
@@ -103,16 +153,16 @@ void Format::DrawMission()
     }
 
     move(22, maxwidth / 5 * 4 + 4);
-    printw("Length : %d/%d", player->lengthScore, nowMission[0]);
+    printw("Length : %d/%d (%c)", player->lengthScore, nowMission[0], Complete(player->lengthScore, nowMission[0]));
 
     move(24, maxwidth / 5 * 4 + 4);
-    printw("Fruit : %d/%d", player->growScore, nowMission[1]);
+    printw("Fruit : %d/%d (%c)", player->growScore, nowMission[1], Complete(player->growScore, nowMission[1]));
 
     move(26, maxwidth / 5 * 4 + 4);
-    printw("Poison : %d/%d", player->poisonScore, nowMission[2]);
+    printw("Poison : %d/%d (%c)", player->poisonScore, nowMission[2], Complete(player->poisonScore, nowMission[2]));
 
     move(28, maxwidth / 5 * 4 + 4);
-    printw("Gate : %d/%d", player->gateScore, nowMission[3]);
+    printw("Gate : %d/%d (%c)", player->gateScore, nowMission[3], Complete(player->gateScore, nowMission[3]));
 
     for (int i = 0; i < 26; i++)
     {
