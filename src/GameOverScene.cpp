@@ -1,6 +1,5 @@
 #include "IScene.h"
 #include "GameScene.h"
-#include "Stage.h"
 #include "WaitingScene.h"
 #include <ncurses.h>
 #include <fstream>
@@ -8,10 +7,9 @@
 #include <ctime>
 #include <iostream>
 
-extern Stage *stage;
-
 GameOverScene::GameOverScene()
 {
+    refresh();
 }
 
 GameOverScene::~GameOverScene() {}
@@ -43,7 +41,6 @@ void GameOverScene::ClearCentre(float x, float y)
 int GameOverScene::UserInput()
 {
     int UserInput = getch();
-    refresh();
     endwin();
     clear();
 

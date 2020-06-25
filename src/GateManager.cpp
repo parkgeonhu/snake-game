@@ -160,7 +160,7 @@ CharPosition GateManager::GetNextGate()
     return nextPos;
 }
 
-//[TO-DO]gate는 5초 지나면 사라지게 두고, snake의 head를 어떤 함수가 내뱉는 gate의 위치로 옮겨야 함, gate는 snake 출입 중일 때는 사라지면 안됨.
+
 void GateManager::Update(float eTime)
 {
     int *temp = new int[data.size()];
@@ -198,23 +198,9 @@ void GateManager::Update(float eTime)
             isUsed = false;
         }
     }
-
-    // for(int i=0;i<data.size();i++){
-    //     if(isExceedTime(data[i],eTime)){
-    //         temp[i]=1;
-
-    //     }
-    //     else{
-    //         temp[i]=0;
-    //     }
-    // }
-
-    // for(int i=data.size()-1;i>=0;i--){
-    //     if(temp[i]==1){
-    //         mapManager->PatchData(data[i].position.y, data[i].position.x, '0');
-    //         data.erase(data.begin()+i);
-    //     }
-    // }
+    
+    delete []temp;
+    
 }
 
 void GateManager::PositionGate()

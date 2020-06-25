@@ -18,8 +18,6 @@ public:
     
     float lastDropTime=0;
     
-    // Fruit fruit;
-    // Poison poison;
 
     ItemManager();
     ~ItemManager();

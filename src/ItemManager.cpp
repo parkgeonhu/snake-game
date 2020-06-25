@@ -104,16 +104,3 @@ void ItemManager::PushData(){
         }
 	}
 }
-
-// void ItemManager::GetItem(Snake s)
-// {
-//     if (s.entire[0].x == fruit.data[0].x && s.entire[0].y == fruit.data[0].y)
-//         fruit.eatFruit = true;
-//     else
-//         fruit.eatFruit = false;
-
-//     if (s.entire[0].x == poison.data[0].x && s.entire[0].y == poison.data[0].y)
-//         poison.eatPoison = true;
-//     else
-//         poison.eatPoison = false;
-// }

@@ -18,8 +18,6 @@ public:
 
     float lastDropTime = 0;
 
-    // Fruit fruit;
-    // Poison poison;
 
     MapManager();
     ~MapManager();
@@ -35,6 +33,4 @@ public:
     void Print();
     void Load();
 
-    void LoadMap();
-    void PrintMap();
 };

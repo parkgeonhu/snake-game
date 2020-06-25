@@ -37,15 +37,19 @@ GameScene::GameScene()
   format = new Format();
 
   InitGameWindow();
-  DrawWindow();
   refresh();
 }
 
 GameScene::~GameScene()
 {
-  //delete mapManager;
-  nodelay(stdscr, false);
-  endwin();
+    delete format;
+    delete itemManager;
+    delete gateManager;
+    delete snake;
+    delete player;
+    delete mapManager;
+    nodelay(stdscr, false);
+    endwin();
 }
 
 // initialise the game window
@@ -67,9 +71,7 @@ void GameScene::ProcessCollision()
 
   char temp = mapManager->data[y][x];
 
-  // mvaddch(2, maxwidth / 5 * 4 + 4, mapManager->data[y][x]);
-
-  if (temp == '1' || snake->entire.size() <= 4)
+  if (temp == '1')
   {
     snake->isDied = true;
   }
@@ -123,11 +125,13 @@ void GameScene::Update(float eTime)
   if (snake->isDied)
   {
     ChangeScene(new GameOverScene());
+  }else{
+      snake->PushData();
+      format->Update(eTime);
+      itemManager->Update(eTime);
+      gateManager->Update(eTime);      
   }
-  snake->PushData();
-  format->Update(eTime);
-  itemManager->Update(eTime);
-  gateManager->Update(eTime);
+
   //* float eTime test code *//
   // move((maxheight-2)/2,(maxwidth-5)/2);
   // printw("%f",eTime);
@@ -177,38 +181,3 @@ void GameScene::Render()
   refresh();
 }
 
-// draw the game window
-void GameScene::DrawWindow()
-{
-}
-
-// // print score at bottom of window
-// void GameScene::PrintScore()
-// {
-// 	move(maxheight-1, 0);
-// 	printw("Score: %d", score);
-// 	return;
-// }
-
-// void GameScene::PlayGame()
-// {
-//     while(1)
-//     {
-//         if (FatalCollision())
-//         {
-//             move((maxheight-2)/2,(maxwidth-5)/2);
-//             printw("GAME OVER");
-//             break;
-//         }
-
-//         Update();
-//         Render();
-
-//         if (direction=='q') //exit
-//         {
-//         	break;
-//         }
-
-//         usleep(500); // delay
-//     }
-// }

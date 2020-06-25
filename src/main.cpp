@@ -15,7 +15,7 @@ using int32 = int;
 
 int32 maxheight, maxwidth;
 
-int32 main()
+int main()
 {
 	Init();
 	do
@@ -23,6 +23,6 @@ int32 main()
 		Update(GetElapsedTime());
 		Render();
 	} while (true);
-	// (AskUserToPlayAgain() == 'y');
+    Destroy();
 	return 0;
 }

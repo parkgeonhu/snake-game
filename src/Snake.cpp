@@ -17,6 +17,7 @@ Snake::Snake()
 
 Snake::~Snake()
 {
+    
 }
 
 void Snake::PushData(){
@@ -44,12 +45,8 @@ void Snake::SetDirection(char ch){
 }
 
 void Snake::Update(float eTime){
-	//  ths snake's size below 3. Chanege GameScene to GameOverScene
+
 	int32 KeyPressed;
-	// if (entire.size() < 3 || (entire[0].x <= 0 || entire[0].x >= maxwidth / 4 * 3 - 1) || (entire[0].y >= maxheight - 1 || entire[0].y <= 0))
-	// {
-	// 	isDied=true;
-	// }
 
     KeyPressed = getch();
 	switch (KeyPressed)
@@ -90,6 +87,10 @@ void Snake::Update(float eTime){
 		direction = 'q'; // key to quit the game
 		break;
 	}
+    
+     if(entire.size() <= 3){
+         isDied=true;
+     }
 
 	// the snake moves and we add an extra character at the beginning of the vector
 	// add a head and initialise new coordinates for CharPosition according to the direction input
@@ -162,32 +163,4 @@ CharPosition Snake::GetTail(){
 
 void Snake::Render()
 {
-	// // the snake doesn't eat fruit, remains same size
-	// if (!(eatFruit || eatPoison)) // 작아지는 아이템을 안 먹었을 경우
-	// {
-        
-	// }
-	// else if (eatFruit)
-	// {
-	// 	refresh();
-	// }
-	// else if (eatPoison){
-	// 	entire.pop_back();
-	// 	mapManager->PatchData(entire[entire.size() - 1].y, entire[entire.size() - 1].x,'0');
-	// 	printw(" ");
-	// 	entire.pop_back(); // add empty ch to remove last character
-	// 	refresh();
-	// }
-
-	// // move to the new CharPosition coordinates
-	// move(entire[0].y, entire[0].x);
-	// addch(partchar); // add a new head
-
-	// refresh();
 }
-
-// void Snake::EatItem(bool fruit, bool poison)
-// {
-// 	eatFruit = fruit;
-// 	eatPoison = poison;
-// }

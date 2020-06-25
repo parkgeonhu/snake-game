@@ -12,31 +12,12 @@ extern Player *player;
 extern Stage *stage;
 extern Snake *snake;
 
-//char edgechar = (char)219;
-// for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-// {
-//     move(0, i);
-//     addch(edgechar);
-// }
-// for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-// {
-//     move(maxheight / 2, i);
-//     addch(edgechar);
-// }
-// for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-// {
-//     move(maxheight - 1, i);
-//     addch(edgechar);
-// }
-// for (int i = 0; i < maxheight; i++)
-// {
-//     move(i, maxwidth - 1);
-//     addch(edgechar);
-// }
 
 Format::Format()
 {
     //굳이 maxwidth, maxheight 안써도 됩니다.
+    
+    
     getmaxyx(stdscr, maxheight, maxwidth);
 }
 Format::~Format()
@@ -95,6 +76,9 @@ void Format::DrawScore()
 void Format::DrawTime(float eTime)
 {
     int digit = 10;
+    
+    
+    //[TO-DO] etime 수정
     digitTime = (int)(60 - eTime);
     if (digitTime <= 0)
         snake->isDied = true;
@@ -141,8 +125,8 @@ char Format::Complete(int present, int goal)
 
 void Format::DrawMission()
 {
-    int *nowMission = stage->getNowMission();
-
+    int * nowMission = stage->getNowMission();
+    
     move(maxheight / 2, maxwidth / 5 * 4 + 1);
     printw("< M I S S I O N >");
 

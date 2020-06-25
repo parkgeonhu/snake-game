@@ -18,6 +18,4 @@ void Update(float eTime); //Elapsed Time
 void Render();
 void Destroy();
 float GetElapsedTime();
-// void UpdateKeyState();
-// int MyKeyState(int key);
 void ChangeScene(IScene *p, bool nowSceneErase = true);
