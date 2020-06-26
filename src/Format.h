@@ -9,6 +9,11 @@ class Format : public IObject
 {
 public:
     int maxheight, maxwidth, digitTime;
+    
+    int gameTime;
+    
+    float gameStartTime;
+    
     const char *score[10][5] =
         {
             {"00000",

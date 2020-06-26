@@ -5,38 +5,17 @@
 #include <string>
 #include "Player.h"
 #include "Stage.h"
-#include "Snake.h"
 #include "Format.h"
 
 extern Player *player;
 extern Stage *stage;
-extern Snake *snake;
 
-//char edgechar = (char)219;
-// for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-// {
-//     move(0, i);
-//     addch(edgechar);
-// }
-// for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-// {
-//     move(maxheight / 2, i);
-//     addch(edgechar);
-// }
-// for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-// {
-//     move(maxheight - 1, i);
-//     addch(edgechar);
-// }
-// for (int i = 0; i < maxheight; i++)
-// {
-//     move(i, maxwidth - 1);
-//     addch(edgechar);
-// }
 
 Format::Format()
 {
     //굳이 maxwidth, maxheight 안써도 됩니다.
+    gameStartTime=-1;
+    gameTime=-1;
     getmaxyx(stdscr, maxheight, maxwidth);
 }
 Format::~Format()
@@ -95,9 +74,16 @@ void Format::DrawScore()
 void Format::DrawTime(float eTime)
 {
     int digit = 10;
-    digitTime = (int)(60 - eTime);
-    if (digitTime <= 0)
-        snake->isDied = true;
+    
+    
+    
+    if(gameStartTime==-1){
+        gameStartTime=eTime;
+    }
+    
+    gameTime=eTime-gameStartTime;
+    digitTime = (int)(60 - gameTime);
+    
 
     for (int j = 0; j < 5; j++)
     {
@@ -141,8 +127,8 @@ char Format::Complete(int present, int goal)
 
 void Format::DrawMission()
 {
-    int *nowMission = stage->getNowMission();
-
+    int * nowMission = stage->getNowMission();
+    
     move(maxheight / 2, maxwidth / 5 * 4 + 1);
     printw("< M I S S I O N >");
 

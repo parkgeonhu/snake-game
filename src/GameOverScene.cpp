@@ -1,6 +1,5 @@
 #include "IScene.h"
 #include "GameScene.h"
-#include "Stage.h"
 #include "WaitingScene.h"
 #include <ncurses.h>
 #include <fstream>
@@ -8,18 +7,16 @@
 #include <ctime>
 #include <iostream>
 
-extern Stage *stage;
-
 GameOverScene::GameOverScene()
 {
+    
 }
 
 GameOverScene::~GameOverScene() {}
 
-void GameOverScene::Update(float eTime)
-{
+void GameOverScene::Update(float eTime){
+    refresh();
     Load();
-
     char answer = AskUserToPlayAgain();
 
     if (answer == 'y')
@@ -43,7 +40,6 @@ void GameOverScene::ClearCentre(float x, float y)
 int GameOverScene::UserInput()
 {
     int UserInput = getch();
-    refresh();
     endwin();
     clear();
 

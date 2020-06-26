@@ -3,8 +3,6 @@
 #include "myFunction.h"
 #include "MapManager.h"
 
-
-
 extern MapManager * mapManager;
 
 CharPosition Item::getRandPosition(){
@@ -34,10 +32,4 @@ void Item::Update(float eTime){
 }
 
 void Item::Render() {
-    // move(position->y,position->x);
-    
-    // if(type=="fruit")
-    //     addch('$');
-    // else if(type=="poison")
-    //     addch('X');
 }

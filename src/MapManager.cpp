@@ -15,7 +15,6 @@ void MapManager::Load(){
     
     std::ifstream readFile;
     string src = "map/map"+std::to_string(stage->getNowStage()+1) + ".txt";
-    // string src = "map/map1.txt";
 
     readFile.open(src);
     int height = 0;
@@ -57,43 +56,14 @@ void MapManager::PatchData(int y, int x, char patchData){
     data[y][x]=patchData;
 }
 
-void MapManager::Print(){
-    for(int i=0;i<HEIGHT;i++){
-        cout<<data[i]<<endl;
-    }
-}
-
-
 MapManager::~MapManager()
 {
 }
+
 void MapManager::Render()
 {
 }
+
 void MapManager::Update(float eTime)
 {
-    // PrintMap();
 }
-// void MapManager::LoadMap() // load Map. save innerWall & outerWall
-// {
-//     for (int i = 0; i < mapheight; i++)
-//     {
-//         for (int j = 0; j < mapwidth; j++)
-//         {
-//             if (data[i][j] == '#') // save outerWall data
-//             {
-//                 wallManager->outerWall.push_back(CharPosition(j, i));
-//             }
-
-//             else if (data[i][j] == 'O') // save innerWall data
-//             {
-//                 wallManager->outerWall.push_back(CharPosition(j, i));
-//             }
-//         }
-//     }
-// }
-// void MapManager::PrintMap()
-// {
-//     wallManager->PrintInnerWall();
-//     wallManager->PrintOuterWall();
-// }

@@ -49,14 +49,19 @@ void ItemManager::Update(float eTime){
     
     
     //item drop
-    if(eTime-lastDropTime>DROP_INTERVAL){
-        PositionItem("poison",eTime);
+    if(eTime-lastDropTime>DROP_ITEM_INTERVAL && data.size()<=3){
+        int randNum=rand()%2;
+        if(randNum==0){
+            PositionItem("poison",eTime);
+        }else{
+            PositionItem("fruit",eTime);
+        }
         PushData();
-        PositionItem("fruit",eTime);
         lastDropTime=eTime;
     }
     
     for(int i=0;i<data.size();i++){
+        
         if(isExceedTime(data[i],eTime)){
             temp[i]=1;
             
@@ -104,16 +109,3 @@ void ItemManager::PushData(){
         }
 	}
 }
-
-// void ItemManager::GetItem(Snake s)
-// {
-//     if (s.entire[0].x == fruit.data[0].x && s.entire[0].y == fruit.data[0].y)
-//         fruit.eatFruit = true;
-//     else
-//         fruit.eatFruit = false;
-
-//     if (s.entire[0].x == poison.data[0].x && s.entire[0].y == poison.data[0].y)
-//         poison.eatPoison = true;
-//     else
-//         poison.eatPoison = false;
-// }

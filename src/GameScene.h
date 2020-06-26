@@ -35,26 +35,7 @@ public:
 	bool isChangeScene;
 
 	void InitGameWindow();
-	void DrawWindow();
-	// void DrawSnake();
-	// void PrintScore();
-	// void PositionFruit();
-	// void PositionPoisonItem();
-	// bool FatalCollision();
-	// void MoveSnake();
-	// bool GetsFruit();
-	// bool GetsPoisonItem();
-
 	void Update(float eTime);
 	void Render();
 	void ProcessCollision();
-
-	void UpdateGameover(float eTime);
-	// void UpdateStop(float eTime);
-	// void UpdateClear(float eTime);
-
-	// void RenderEveryTime();
-	// void RenderStop();
-	void RenderGameover();
-	// void RenderClear();
 };
