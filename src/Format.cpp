@@ -5,19 +5,17 @@
 #include <string>
 #include "Player.h"
 #include "Stage.h"
-#include "Snake.h"
 #include "Format.h"
 
 extern Player *player;
 extern Stage *stage;
-extern Snake *snake;
 
 
 Format::Format()
 {
     //굳이 maxwidth, maxheight 안써도 됩니다.
-    
-    
+    gameStartTime=-1;
+    gameTime=-1;
     getmaxyx(stdscr, maxheight, maxwidth);
 }
 Format::~Format()
@@ -78,10 +76,14 @@ void Format::DrawTime(float eTime)
     int digit = 10;
     
     
-    //[TO-DO] etime 수정
-    digitTime = (int)(60 - eTime);
-    if (digitTime <= 0)
-        snake->isDied = true;
+    
+    if(gameStartTime==-1){
+        gameStartTime=eTime;
+    }
+    
+    gameTime=eTime-gameStartTime;
+    digitTime = (int)(60 - gameTime);
+    
 
     for (int j = 0; j < 5; j++)
     {

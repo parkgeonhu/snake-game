@@ -21,7 +21,7 @@ Snake::~Snake()
 }
 
 void Snake::PushData(){
-    for (int32 i = 0; i < entire.size(); i++){
+    for (int i = 0; i < entire.size(); i++){
         if(i==0){
             mapManager->PatchData(entire[i].y, entire[i].x, '3');
         }
@@ -33,7 +33,7 @@ void Snake::PushData(){
 
 void Snake::initBody()
 {
-	for (int32 i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		entire.push_back(CharPosition(30 + i, 10));
 	}
@@ -46,7 +46,7 @@ void Snake::SetDirection(char ch){
 
 void Snake::Update(float eTime){
 
-	int32 KeyPressed;
+	int KeyPressed;
 
     KeyPressed = getch();
 	switch (KeyPressed)

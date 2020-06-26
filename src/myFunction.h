@@ -3,7 +3,7 @@
 #include <chrono>
 #include <iostream>
 
-#define DROP_INTERVAL 3.0f
+#define DROP_ITEM_INTERVAL 3.0f
 #define DROP_GATE_INTERVAL 7.0f
 
 #define WIDTH 62

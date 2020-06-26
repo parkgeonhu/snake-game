@@ -71,7 +71,7 @@ void GameScene::ProcessCollision()
 
   char temp = mapManager->data[y][x];
 
-  if (temp == '1')
+  if (temp == '1' || temp == '4')
   {
     snake->isDied = true;
   }
@@ -122,7 +122,7 @@ void GameScene::Update(float eTime)
   {
     ProcessCollision();
   }
-  if (snake->isDied)
+  if (snake->isDied || format->gameTime >= 60)
   {
     ChangeScene(new GameOverScene());
   }else{
