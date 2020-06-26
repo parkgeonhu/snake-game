@@ -18,6 +18,7 @@ public:
 	void Update(float eTime);
 	void Render();
 
+	void Load();
 	void ClearCentre(float x, float y);
 	int UserInput();
 	int IsUserReady();

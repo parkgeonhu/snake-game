@@ -16,16 +16,36 @@ public:
 	~Snake();
 
 	std::vector<CharPosition> entire;
+    bool isDied=false;
 	char partchar, direction;
 	int choiceCount;
 	int select;
 	int maxwidth, maxheight;
-	bool eatFruit = false;
-	bool eatPoison = false;
+	bool isGrow = false;
+	bool isShrink = false;
 
 	void Update(float eTime);
+    
+    void PushData();
+    
+    void SetDirection(char ch);
+    
+    bool IsCollision();
+    
+    void Grow();
+    void Shrink();
+    
+    CharPosition GetHead();
+    CharPosition GetTail();
+
+    void SetHeadPos(int y,int x);
+    
+    void CutTail();
+    
 	void Render();
 	void initBody();
+    
+    
     
 	void EatItem(bool fruit, bool poison);
 };

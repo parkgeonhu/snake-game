@@ -24,4 +24,6 @@ public:
 
     // print ask to play again
     int AskUserToPlayAgain();
+
+    void Load();
 };

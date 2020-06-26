@@ -1,45 +1,80 @@
 #pragma once
 #include <ncurses.h>
 #include <vector>
+#include <string.h>
 #include <cstdlib>
-#include "IScene.h"
+#include "IObject.h"
 
-class Format : public IScene
+class Format : public IObject
 {
 public:
-    char edgechar = (char)219;
+    int maxheight, maxwidth, digitTime;
+    
+    int gameTime;
+    
+    float gameStartTime;
+    
+    const char *score[10][5] =
+        {
+            {"00000",
+             "0   0",
+             "0   0",
+             "0   0",
+             "00000"},
+            {" 11  ",
+             "  1  ",
+             "  1  ",
+             "  1  ",
+             "11111"},
+            {"22222",
+             "    2",
+             "22222",
+             "2    ",
+             "22222"},
+            {"33333",
+             "    3",
+             "33333",
+             "    3",
+             "33333"},
+            {"4   4",
+             "4   4",
+             "44444",
+             "    4",
+             "    4"},
+            {"55555",
+             "5    ",
+             "55555",
+             "    5",
+             "55555"},
+            {"66666",
+             "6    ",
+             "66666",
+             "6   6",
+             "66666"},
+            {"77777",
+             "    7",
+             "    7",
+             "    7",
+             "    7"},
+            {"88888",
+             "8   8",
+             "88888",
+             "8   8",
+             "88888"},
+            {"99999",
+             "9   9",
+             "99999",
+             "    9",
+             "99999"},
+        };
 
-    Format()
-    {
-        int maxwidth, maxheight;
-        getmaxyx(stdscr, maxheight, maxwidth);
-        for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-        {
-            move(0, i);
-            addch(edgechar);
-        }
-        for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-        {
-            move(maxheight / 2, i);
-            addch(edgechar);
-        }
-        for (int i = maxwidth / 4 * 3; i < maxwidth; i++)
-        {
-            move(maxheight - 1, i);
-            addch(edgechar);
-        }
-        for (int i = 0; i < maxheight; i++)
-        {
-            move(i, maxwidth - 1);
-            addch(edgechar);
-        }
-        move(0, maxwidth / 5 * 4 + 4);
-        printw("< S C O R E >");
-        move(maxheight / 2, maxwidth / 5 * 4 + 2);
-        printw("< M I S S I O N >");
-    }
-    ~Format() {}
-    void Print() {}
-    void Update(float eTime) {}
-    void Render() {}
+    Format();
+    ~Format();
+    void Update(float eTime);
+    void Render();
+
+    char Complete(int present, int goal);
+    void DrawTime(float eTime);
+    void DrawScore();
+    void DrawMission();
 };

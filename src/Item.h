@@ -16,14 +16,10 @@ public:
     Item(std::string t, float eTime);
 	~Item();
     
-    CharPosition * position;
+    CharPosition position;
     
-    // Item(){
-    //     int maxwidth, maxheight;
-    //     getmaxyx(stdscr, maxheight, maxwidth);
-    //     data.push_back(CharPosition(rand() % (maxwidth / 4 * 3 - 1) + 1, rand() % (maxheight - 1) + 1));
-    // }
-    
+    CharPosition getRandPosition();
+
     void Update(float eTime);
 	void Render();
 };

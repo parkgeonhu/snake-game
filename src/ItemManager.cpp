@@ -6,6 +6,9 @@
 #include "ItemManager.h"
 #include "GameScene.h"
 
+extern MapManager * mapManager;
+
+
 
 ItemManager::ItemManager()
 {
@@ -17,50 +20,67 @@ ItemManager::~ItemManager()
 }
 
 void ItemManager::Render(){
-    vector<Item>::iterator iter;
-    for (iter = data.begin(); iter != data.end(); ++iter){
-        (*iter).Render();
+
+}
+
+bool isExceedTime(Item item, float eTime){
+    if(eTime-item.dropTime>5){
+        return true;
     }
+    return false;
+}
+
+void ItemManager::DeleteCollisionData(int y, int x){
+    
+    int target;
+    
+    for(int i=0;i<data.size();i++){
+        if(data[i].position.x==x && data[i].position.y==y){
+            target=i;
+        }
+    }
+    data.erase(data.begin()+target);
+    
 }
 
 void ItemManager::Update(float eTime){
-    if(eTime-lastDropTime>DROP_INTERVAL){
-        PositionItem("poison",eTime);
-        PositionItem("fruit",eTime);
+    int * temp=new int[data.size()];
+    vector<Item>::iterator iter;
+    
+    
+    //item drop
+    if(eTime-lastDropTime>DROP_ITEM_INTERVAL && data.size()<=3){
+        int randNum=rand()%2;
+        if(randNum==0){
+            PositionItem("poison",eTime);
+        }else{
+            PositionItem("fruit",eTime);
+        }
+        PushData();
         lastDropTime=eTime;
     }
     
-    // fruit.timeCheck = fruit.timeCheck % 100;
-    // poison.timeCheck = poison.timeCheck % 100;
-
-    // if (fruit.timeCheck == 0)
-    // {
-    //     fruit.Print();
-    //     PositionItem("fruit");
-    // }
-    // else if (fruit.eatFruit)
-    // {
-    //     fruit.timeCheck = 0;
-    //     PositionItem("fruit");
-    //     fruit.eatFruit = false;
-    // }
-    // if (poison.timeCheck == 0)
-    // {
-    //     move(poison.data[0].y, poison.data[0].x);
-    //     addch(' ');
-    //     PositionItem("poison");
-    // }
-    // else if (poison.eatPoison)
-    // {
-    //     poison.timeCheck = 0;
-    //     PositionItem("poison");
-    //     poison.eatPoison = false;
-    // }
-
-    // fruit.timeCheck++;
-    // poison.timeCheck++;
+    for(int i=0;i<data.size();i++){
+        
+        if(isExceedTime(data[i],eTime)){
+            temp[i]=1;
+            
+        }
+        else{
+            temp[i]=0;
+        }        
+    }
     
+    for(int i=data.size()-1;i>=0;i--){
+        if(temp[i]==1){
+            mapManager->PatchData(data[i].position.y, data[i].position.x, '0');
+            data.erase(data.begin()+i);
+        }
+    }
     
+    delete[] temp;
+    
+    PushData();
     
 }
 
@@ -74,15 +94,18 @@ void ItemManager::PositionItem(std::string check, float eTime)
     }
 }
 
-// void ItemManager::GetItem(Snake s)
-// {
-//     if (s.entire[0].x == fruit.data[0].x && s.entire[0].y == fruit.data[0].y)
-//         fruit.eatFruit = true;
-//     else
-//         fruit.eatFruit = false;
-
-//     if (s.entire[0].x == poison.data[0].x && s.entire[0].y == poison.data[0].y)
-//         poison.eatPoison = true;
-//     else
-//         poison.eatPoison = false;
-// }
+void ItemManager::PushData(){
+    for (int32 i = 0; i < data.size(); i++){
+        if(data[i].type=="fruit"){
+            mapManager->PatchData(data[i].position.y, data[i].position.x, '5');
+            // mvaddch(data[i].position->y, data[i].position->x,'5');
+        }
+        else if(data[i].type=="poison"){
+            mapManager->PatchData(data[i].position.y, data[i].position.x, '6');
+            // mvaddch(data[i].position->y, data[i].position->x,'5');
+        }
+        else{
+            
+        }
+	}
+}
