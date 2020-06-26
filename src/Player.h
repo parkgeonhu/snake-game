@@ -3,11 +3,11 @@
 class Player
 {
 public:
-    int lengthScore;
-    int growScore;
-    int poisonScore;
-    int gateScore;
-    int totalScore;
+    int lengthScore=0;
+    int growScore=0;
+    int poisonScore=0;
+    int gateScore=0;
+    int totalScore=0;
 
     Player()
     {

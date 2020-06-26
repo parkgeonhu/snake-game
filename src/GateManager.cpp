@@ -160,20 +160,58 @@ CharPosition GateManager::GetNextGate()
     return nextPos;
 }
 
-
 void GateManager::Update(float eTime)
 {
     int *temp = new int[data.size()];
     vector<CharPosition>::iterator iter;
 
-    //꼬리가 다음 게이트 지시 위치로 갔는가
-    CharPosition tail = snake->GetTail();
-    if (nextPos.x == tail.x && nextPos.y == tail.y)
+    if (isEntering)
     {
-        isRemove = true;
+        //꼬리가 다음 게이트 지시 위치로 갔는가
+        CharPosition tail = snake->GetTail();
+        if (nextPos.x == tail.x && nextPos.y == tail.y)
+        {
+            isRemove = true;
+        }
+
+        //게이트를 삭제해야한다면 바로 map에 반영하기
+        if (isRemove == true)
+        {
+            for (int i = data.size() - 1; i >= 0; i--)
+            {
+                mapManager->PatchData(data[i].y, data[i].x, '1');
+                data.pop_back();
+            }
+            isCreated = false;
+            isRemove = false;
+            isEntering = false;
+            lastDropTime = eTime;
+        }
+    }
+    else if(isCreated==true && isEntering==false && eTime - lastDropTime > DROP_GATE_INTERVAL)
+    {
+        for (int i = data.size() - 1; i >= 0; i--)
+        {
+            mapManager->PatchData(data[i].y, data[i].x, '1');
+            data.pop_back();
+        }
+        isCreated=false;
     }
 
-    //게이트를 삭제해야한다면 바로 map에 반영하기
+    PushData();
+
+    //Gate drop
+    if (eTime - lastDropTime > DROP_GATE_INTERVAL && isEntering == false && snake->entire.size()>=4)
+    {
+        if (isCreated == false)
+        {
+            PositionGate();
+            lastDropTime = eTime;
+            isCreated = true;
+        }
+    }
+
+    /* gate test code 사용 시 위의 줄을 주석화하세요.
     if (isRemove == true)
     {
         for (int i = data.size() - 1; i >= 0; i--)
@@ -186,8 +224,7 @@ void GateManager::Update(float eTime)
     }
 
     PushData();
-
-    //Gate drop
+    
     if (eTime - lastDropTime > DROP_GATE_INTERVAL)
     {
         if (isCreated == false && isUsed == true)
@@ -198,9 +235,9 @@ void GateManager::Update(float eTime)
             isUsed = false;
         }
     }
-    
-    delete []temp;
-    
+    */
+
+    delete[] temp;
 }
 
 void GateManager::PositionGate()

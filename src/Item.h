@@ -20,13 +20,6 @@ public:
     
     CharPosition getRandPosition();
 
-    
-    // Item(){
-    //     int maxwidth, maxheight;
-    //     getmaxyx(stdscr, maxheight, maxwidth);
-    //     data.push_back(CharPosition(rand() % (maxwidth / 4 * 3 - 1) + 1, rand() % (maxheight - 1) + 1));
-    // }
-    
     void Update(float eTime);
 	void Render();
 };

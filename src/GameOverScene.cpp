@@ -9,15 +9,14 @@
 
 GameOverScene::GameOverScene()
 {
-    refresh();
+    
 }
 
 GameOverScene::~GameOverScene() {}
 
-void GameOverScene::Update(float eTime)
-{
+void GameOverScene::Update(float eTime){
+    refresh();
     Load();
-
     char answer = AskUserToPlayAgain();
 
     if (answer == 'y')

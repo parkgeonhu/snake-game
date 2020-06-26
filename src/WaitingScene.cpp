@@ -20,23 +20,25 @@ WaitingScene::~WaitingScene()
 
 void WaitingScene::Update(float eTime)
 {
-    char answer = IsUserReady();
+    char answer;
+    int temp;
+    do{
+        answer = IsUserReady();
+        if (answer == 'n')
+            exit(0);
+        temp=(int)answer - 49;
+    }while(temp<0 || temp>2);
+    
     stage->setNowStage((int)answer - 49);
-
-    if (answer == 'n')
-        exit(0);
-    else
-        ChangeScene(new GameScene());
+    
+    ChangeScene(new GameScene());
 }
 
 void WaitingScene::Render()
 {
-
-    // ui->menuBackGround->Render(&ui->mat);
-    // for (int i = 0; i<7; i++){
-    // 	ui->menu_star[i][stage->menuStar[i]]->Render(&ui->mat);
-    // }
 }
+
+
 void WaitingScene::ClearCentre(float x, float y)
 {
     clear(); // clear the screen if the game is played for the 2nd time
@@ -107,7 +109,7 @@ int WaitingScene::IsUserReady()
     Load();
 
     move(25, 5);
-    printw("Welcome to the Snake Game. Press 1 to start");
+    printw("Welcome to the Snake Game. Press 1 or 2 or 3 to start");
     move(30, 14);
     printw("made by parkgeonhu & mindaein");
     return UserInput();
