@@ -51,7 +51,7 @@ Format.h : 박건후(0%), 민대인(100%)
 Format.cpp : 박건후(0%), 민대인(100%)
 
 <Scene>
-IScene.cpp : 박건후(90%), 민대인(10%)
+IScene.h : 박건후(90%), 민대인(10%)
 WaitingScene.h : 박건후(10%), 민대인(90%)
 WaitingScene.cpp : 박건후(10%), 민대인(90%)
 GameScene.h : 박건후(10%), 민대인(90%)
