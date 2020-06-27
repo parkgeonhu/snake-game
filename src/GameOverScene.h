@@ -1,3 +1,10 @@
+/**
+ * @file GameOverScene.h
+ * 
+ * @brief GameOverScene의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #pragma once
 #include "IScene.h"
 #include "Stage.h"

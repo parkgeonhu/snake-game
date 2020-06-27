@@ -1,3 +1,10 @@
+/**
+ * @file myFunction.h
+ * 
+ * @brief myFunction의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #pragma once
 #include "IScene.h"
 #include <chrono>
@@ -9,9 +16,7 @@
 #define WIDTH 62
 #define HEIGHT 32
 
-
 using namespace std;
-
 
 void Init();
 void Update(float eTime); //Elapsed Time

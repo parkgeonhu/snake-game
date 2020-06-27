@@ -1,3 +1,10 @@
+/**
+ * @file GameOverScene.cpp
+ * 
+ * @brief GameOverScene 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #include "IScene.h"
 #include "GameScene.h"
 #include "WaitingScene.h"
@@ -9,12 +16,12 @@
 
 GameOverScene::GameOverScene()
 {
-    
 }
 
 GameOverScene::~GameOverScene() {}
 
-void GameOverScene::Update(float eTime){
+void GameOverScene::Update(float eTime)
+{
     refresh();
     Load();
     char answer = AskUserToPlayAgain();

@@ -1,3 +1,10 @@
+/**
+ * @file Format.cpp
+ * 
+ * @brief Format 파일입니다.
+ * 
+ * @author mindaein
+ */
 #include <ncurses.h>
 #include <vector>
 #include <cstdlib>
@@ -10,12 +17,11 @@
 extern Player *player;
 extern Stage *stage;
 
-
 Format::Format()
 {
     //굳이 maxwidth, maxheight 안써도 됩니다.
-    gameStartTime=-1;
-    gameTime=-1;
+    gameStartTime = -1;
+    gameTime = -1;
     getmaxyx(stdscr, maxheight, maxwidth);
 }
 Format::~Format()
@@ -74,16 +80,14 @@ void Format::DrawScore()
 void Format::DrawTime(float eTime)
 {
     int digit = 10;
-    
-    
-    
-    if(gameStartTime==-1){
-        gameStartTime=eTime;
+
+    if (gameStartTime == -1)
+    {
+        gameStartTime = eTime;
     }
-    
-    gameTime=eTime-gameStartTime;
+
+    gameTime = eTime - gameStartTime;
     digitTime = (int)(60 - gameTime);
-    
 
     for (int j = 0; j < 5; j++)
     {
@@ -127,8 +131,8 @@ char Format::Complete(int present, int goal)
 
 void Format::DrawMission()
 {
-    int * nowMission = stage->getNowMission();
-    
+    int *nowMission = stage->getNowMission();
+
     move(maxheight / 2, maxwidth / 5 * 4 + 1);
     printw("< M I S S I O N >");
 

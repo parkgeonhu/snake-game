@@ -1,13 +1,20 @@
+/**
+ * @file Player.h
+ * 
+ * @brief Player의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #pragma once
 
 class Player
 {
 public:
-    int lengthScore=0;
-    int growScore=0;
-    int poisonScore=0;
-    int gateScore=0;
-    int totalScore=0;
+    int lengthScore = 0;
+    int growScore = 0;
+    int poisonScore = 0;
+    int gateScore = 0;
+    int totalScore = 0;
 
     Player()
     {

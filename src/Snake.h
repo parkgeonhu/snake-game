@@ -1,3 +1,11 @@
+/**
+ * @file Snake.h
+ * 
+ * @brief Snake의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
+
 #pragma once
 #include <ncurses.h>
 #include <vector>
@@ -16,7 +24,7 @@ public:
 	~Snake();
 
 	std::vector<CharPosition> entire;
-    bool isDied=false;
+	bool isDied = false;
 	char partchar, direction;
 	int choiceCount;
 	int select;
@@ -25,27 +33,25 @@ public:
 	bool isShrink = false;
 
 	void Update(float eTime);
-    
-    void PushData();
-    
-    void SetDirection(char ch);
-    
-    bool IsCollision();
-    
-    void Grow();
-    void Shrink();
-    
-    CharPosition GetHead();
-    CharPosition GetTail();
 
-    void SetHeadPos(int y,int x);
-    
-    void CutTail();
-    
+	void PushData();
+
+	void SetDirection(char ch);
+
+	bool IsCollision();
+
+	void Grow();
+	void Shrink();
+
+	CharPosition GetHead();
+	CharPosition GetTail();
+
+	void SetHeadPos(int y, int x);
+
+	void CutTail();
+
 	void Render();
 	void initBody();
-    
-    
-    
+
 	void EatItem(bool fruit, bool poison);
 };

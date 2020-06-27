@@ -1,3 +1,10 @@
+/**
+ * @file GateManager.cpp
+ * 
+ * @brief GateManager 파일입니다.
+ * 
+ * @author parkgeonhu
+ */
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -188,20 +195,20 @@ void GateManager::Update(float eTime)
             lastDropTime = eTime;
         }
     }
-    else if(isCreated==true && isEntering==false && eTime - lastDropTime > DROP_GATE_INTERVAL)
+    else if (isCreated == true && isEntering == false && eTime - lastDropTime > DROP_GATE_INTERVAL)
     {
         for (int i = data.size() - 1; i >= 0; i--)
         {
             mapManager->PatchData(data[i].y, data[i].x, '1');
             data.pop_back();
         }
-        isCreated=false;
+        isCreated = false;
     }
 
     PushData();
 
     //Gate drop
-    if (eTime - lastDropTime > DROP_GATE_INTERVAL && isEntering == false && snake->entire.size()>=4)
+    if (eTime - lastDropTime > DROP_GATE_INTERVAL && isEntering == false && snake->entire.size() >= 4)
     {
         if (isCreated == false)
         {

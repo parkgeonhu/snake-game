@@ -1,7 +1,10 @@
-/*
-This is the console executable, that makes use of the fSnakeGame class.
-This is handling all user interaction. For game logic, please see fSnakeGame.h.
-*/
+/**
+ * @file GameCoverScene.cpp
+ * 
+ * @brief GameCoverScene 파일입니다.
+ * 
+ * @author parkgeonhu
+ */
 #include <iostream>
 #include <vector>
 #include <ncurses.h>
@@ -19,6 +22,6 @@ int main()
 		Update(GetElapsedTime());
 		Render();
 	} while (true);
-    Destroy();
+	Destroy();
 	return 0;
 }

@@ -7,6 +7,13 @@
 #include "GateManager.h"
 #include "Format.h"
 #include <iostream>
+/**
+ * @file GameScene.h
+ * 
+ * @brief GameScene의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #include <vector>
 #include <ncurses.h>
 #include <cstdlib>
