@@ -1,3 +1,10 @@
+/**
+ * @file Format.h
+ * 
+ * @brief Format의 헤더 파일입니다.
+ * 
+ * @author mindaein
+ */
 #pragma once
 #include <ncurses.h>
 #include <vector>
@@ -9,11 +16,11 @@ class Format : public IObject
 {
 public:
     int maxheight, maxwidth, digitTime;
-    
+
     int gameTime;
-    
+
     float gameStartTime;
-    
+
     const char *score[10][5] =
         {
             {"00000",

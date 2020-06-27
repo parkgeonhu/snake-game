@@ -1,3 +1,10 @@
+/**
+ * @file WaitingScene.cpp
+ * 
+ * @brief WaitingScene 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 
 #include "WaitingScene.h"
 #include "GameScene.h"
@@ -22,22 +29,22 @@ void WaitingScene::Update(float eTime)
 {
     char answer;
     int temp;
-    do{
+    do
+    {
         answer = IsUserReady();
         if (answer == 'n')
             exit(0);
-        temp=(int)answer - 49;
-    }while(temp<0 || temp>2);
-    
+        temp = (int)answer - 49;
+    } while (temp < 0 || temp > 2);
+
     stage->setNowStage((int)answer - 49);
-    
+
     ChangeScene(new GameScene());
 }
 
 void WaitingScene::Render()
 {
 }
-
 
 void WaitingScene::ClearCentre(float x, float y)
 {

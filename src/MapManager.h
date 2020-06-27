@@ -1,3 +1,10 @@
+/**
+ * @file MapManager.h
+ * 
+ * @brief MapManager의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #pragma once
 #include "IObject.h"
 #include "CharPosition.h"
@@ -13,24 +20,20 @@
 class MapManager : public IObject
 {
 public:
-
     char data[HEIGHT][WIDTH];
 
     float lastDropTime = 0;
-
 
     MapManager();
     ~MapManager();
 
     void Render();
     void Update(float eTime);
-    
-    void * GetData();
-    
+
+    void *GetData();
+
     void PatchData(int y, int x, char patchData);
-    
-    
+
     void Print();
     void Load();
-
 };

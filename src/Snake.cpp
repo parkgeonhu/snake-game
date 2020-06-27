@@ -1,3 +1,10 @@
+/**
+ * @file Snake.cpp
+ * 
+ * @brief Snake 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #include "CharPosition.h"
 #include "myFunction.h"
 #include "GameOverScene.h"

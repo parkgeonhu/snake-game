@@ -1,3 +1,10 @@
+/**
+ * @file GateManager.h
+ * 
+ * @brief GateManager의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu
+ */
 #pragma once
 #include "IObject.h"
 #include "CharPosition.h"
@@ -10,14 +17,13 @@
 class GateManager : public IObject
 {
 public:
-    
     std::vector<CharPosition> data;
-    bool isUsed=true;
-    bool isRemove=false;
-    bool isCreated=false;
-    bool isEntering=false;
-    float lastDropTime=0;
-    
+    bool isUsed = true;
+    bool isRemove = false;
+    bool isCreated = false;
+    bool isEntering = false;
+    float lastDropTime = 0;
+
     GateManager();
     ~GateManager();
 
@@ -28,6 +34,6 @@ public:
     void Update(float eTime);
     void PositionGate();
     void DeleteCollisionData(int y, int x);
-    
+
     void PushData();
 };

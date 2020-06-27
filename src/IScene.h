@@ -1,3 +1,10 @@
+/**
+ * @file IScene.h
+ * 
+ * @brief IScene의 헤더 파일입니다.
+ * 
+ * @author parkgeonhu, mindaein
+ */
 #pragma once
 #include "Stage.h"
 class IScene
